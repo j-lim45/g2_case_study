@@ -147,7 +147,7 @@ class studentDatabase extends CourseDatabase {
         
         try {
             while ((csvReader.readNext()) != null) {System.out.println("Did u even do anything");}
-            bw.newLine(); // fix nothing on line 1
+            bw.newLine(); // fix nothing on line 1 1 2
             bw.write(lineToWrite); bw.close();
         } catch (Exception e) {
             e.printStackTrace();
