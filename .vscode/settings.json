@@ -1,0 +1,8 @@
+{
+    "java.debug.settings.onBuildFailureProceed": true,
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "Case_STudy/lib/opencsv-5.9(1).jar",
+        "Case_STudy/lib/commons-lang3-3.14.0.jar"
+    ]
+}
