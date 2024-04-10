@@ -26,13 +26,15 @@ public class CourseDatabase {
             clearConsole.main();
             System.out.println("INPUT GRADES (0-100)");
 
-            try {
-                System.out.print("2MATHWORLD: "); grades[0] = Scan.caro.nextInt();
-            } catch (Exception e) {
-                
+            while (true) {
+                try {
+                    System.out.print("2MATHWORLD: "); grades[0] = Scan.caro.nextInt();
+                } catch (Exception e) {
+                    System.out.println("Input is not valid.");
+                }
             }
 
-            System.out.print("4FYE1: ");      grades[1] = Scan.caro.nextInt();
+
 
         }
 
