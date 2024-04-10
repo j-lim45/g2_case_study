@@ -7,27 +7,25 @@ import java.util.*;
 import java.io.*;
 
 class studentDatabase extends CourseDatabase {
-    int studentID; String lastName; String firstName; LocalDate birthday; String address; String guardian; int gwa; int[] courseGrade;  // Student attributes
+    int studentID; String lastName; String firstName; LocalDate birthday; String address; String guardian; double gwa; int[] courseGrade = new int[8];  // Student attributes
     static CSVReader csvReader = null;                                                                                              // I placed CSVReader here because I don't want to keep passing it through methods so I made it static
 
     studentDatabase() {
     }
 
-    studentDatabase(int id, String ln, String fn, int[] bd, String a, String g) {                                                   // constructor
+    studentDatabase(int id, String ln, String fn, LocalDate bd, String a, String g, double gwa, int[] cg) {                                                   // constructor
         studentID = id;
         lastName = ln;
         firstName = fn;
-        birthday = LocalDate.of(bd[0], bd[1], bd[2]);
+        birthday = bd;
         address = a;
         guardian = g;
-        for (int i = 0; i < courseGrade.length; i++) {
-            courseGrade[i] = -1;
-        }
+        courseGrade = cg;
     }
 
     static void createNewDatabase(File databaseFile) {                                                                              // METHOD - if database.csv was not found in the specified directory, create a new one
         try {
-            databaseFile.createNewFile();
+            System.out.println(databaseFile.createNewFile());
         } catch (IOException ioe) {
             System.out.println("An error occured in creating database.");
             ioe.printStackTrace();
@@ -44,9 +42,17 @@ class studentDatabase extends CourseDatabase {
                 studentList.get(databaseIndex).studentID = Integer.parseInt(cellRow[0]);
                 studentList.get(databaseIndex).lastName = cellRow[1];
                 studentList.get(databaseIndex).firstName = cellRow[2];
-                // studentList.get(i).birthday = 1;
-                studentList.get(databaseIndex).address = cellRow[4];
-                studentList.get(databaseIndex).guardian = cellRow[5];
+                studentList.get(databaseIndex).birthday = LocalDate.of(Integer.parseInt(cellRow[3]), Integer.parseInt(cellRow[4]),Integer.parseInt(cellRow[5]));
+                studentList.get(databaseIndex).address = cellRow[6];
+                studentList.get(databaseIndex).guardian = cellRow[7];
+                studentList.get(databaseIndex).gwa = Double.parseDouble(cellRow[8]);
+
+                int j = 9;
+                for (int i = 0; i < 8; i++) {
+                    studentList.get(databaseIndex).courseGrade[i] = Integer.parseInt(cellRow[j]);
+                    j++;
+                }
+
                 databaseIndex++;
             }
             csvReader.close();
@@ -54,14 +60,14 @@ class studentDatabase extends CourseDatabase {
             ioe.printStackTrace();
         } catch (CsvValidationException csv) {
             csv.printStackTrace();
-        }
+        }   
     }
 
 
 
     static studentDatabase addUser(BufferedWriter bw) {
-        int studentID; String lastName; String firstName; String address; String guardian; int[] birthday = new int[3];
-        String errorMessage = "";
+        int studentID; String lastName; String firstName; String address; String guardian; int[] birthday = new int[3]; double gwa = 0; int[] grades = new int[8];
+        String errorMessage = ""; String choice;
 
         while (true) {
             System.out.print("Input Student ID: ");
@@ -81,7 +87,6 @@ class studentDatabase extends CourseDatabase {
             break;
         }
 
-        //----FIX BIRTHDAY------/
         while (true) {
             System.out.print("Input Year of Birth: "); birthday[0] = Scan.caro.nextInt();
             System.out.print("Input Month of Birth: "); birthday[1] = Scan.caro.nextInt();
@@ -106,28 +111,53 @@ class studentDatabase extends CourseDatabase {
             guardian = Scan.caro.nextLine().toUpperCase();
             break;
         }
-        String lineToWrite = studentID + ";" + lastName + ";" + firstName + ";" + birthday + ";" + address + ";" + guardian + ";" + birthday[0] + ";" + birthday[1] + ";" + birthday[2];
+        String lineToWrite = 
+        studentID + ";" + lastName + ";" + firstName + ";" + 
+        birthday[0] + ";" + birthday[1] + ";" + birthday[2] + 
+        ";" + address + ";" + guardian + ";";
 
-        System.out.print("Do you want to input your grades?: "); 
-        switch (Scan.caro.next()) {
-            case "Y":
+        System.out.print("Do you want to input your grades?"); 
+        errorMessage = "";
+        while (true) {
+            System.out.println(errorMessage);
+            System.out.print("Input [Y/N]: "); choice = Scan.caro.next().toUpperCase(); System.out.println(choice);
+                if (choice.equals("Y")) {
+                    grades = CourseDatabase.inputGrades();
 
+                    for (int i = 0; i < grades.length; i++) {
+                        gwa += grades[i];
+                    }
+                    gwa /= grades.length;
+
+                    break;
+                } else if (choice.equals("N")) {
+                    for (int i = 0; i < grades.length; i++) {
+                        grades[i] = -1;
+                    }
+                    gwa = -1;
+                    break;
+                } else errorMessage = "Invalid Choice";
+            }
+
+            lineToWrite += gwa;
+        for (int i = 0; i < grades.length; i++) {
+            lineToWrite += ";" + grades[i];
         }
+
         
         try {
             while ((csvReader.readNext()) != null) {System.out.println("Did u even do anything");}
-            bw.newLine();
+            bw.newLine(); // fix nothing on line 1
             bw.write(lineToWrite); bw.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
         
-        return new studentDatabase(studentID, lastName, firstName, birthday, address, guardian);
+        return new studentDatabase(studentID, lastName, firstName, LocalDate.of(birthday[0], birthday[1], birthday[2]), address, guardian, gwa, grades);
     }  
     
 
     static void printAll(ArrayList<studentDatabase> studentList) {
-        System.out.println("Please get first: " + studentList.get(0).studentID);
         System.out.println("LAST NAME\tFIRST NAME\tADDRESS\tGUARDIAN");
         for (int i = 0; i < studentList.size(); i++) {
             System.out.println(studentList.get(i).lastName + "\t" + studentList.get(i).firstName + "\t" + studentList.get(i).address + "\t" + studentList.get(i).guardian);
@@ -135,23 +165,10 @@ class studentDatabase extends CourseDatabase {
         Scan.caro.next();
     }
 
-    static void date() {
-        System.out.print("Enter the year: ");
-        int year = Scan.caro.nextInt();
-        System.out.print("Enter the month: ");
-        int month = Scan.caro.nextInt();
-        System.out.print("Enter the day: ");
-        int day = Scan.caro.nextInt();
-        //Getting the current date value
-        LocalDate givenDate = LocalDate.of(year, month, day);
-        System.out.println("Date: "+givenDate.getYear());
-        Scan.caro.next();
-     }
-    
 
     public static void main(String[] args) {
-        ArrayList<studentDatabase> studentList = new ArrayList<studentDatabase>();
-        String file = "C:\\Users\\Adriane\\Documents\\bscs practice\\Java\\actual case study\\Case_STudy\\src\\database.csv"; 
+        ArrayList<studentDatabase> studentList = new ArrayList<studentDatabase>(); CourseDatabase.addCourse();
+        String file = "database.csv"; 
         File databaseFile = new File(file);
         BufferedWriter bWriter = null;
 
@@ -190,8 +207,6 @@ class studentDatabase extends CourseDatabase {
                 printAll(studentList);
             } else if (choice == 0) {
                 break;
-            } else if (choice == 999) {
-                date();
             }
         }
     }
