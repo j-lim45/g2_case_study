@@ -23,9 +23,12 @@ class studentDatabase extends CourseDatabase {
         courseGrade = cg;
     }
 
-    static void createNewDatabase(File databaseFile) {                                                                              // METHOD - if database.csv was not found in the specified directory, create a new one
+    static void createNewDatabase(File databaseFile, BufferedWriter bw) {                                                                              // METHOD - if database.csv was not found in the specified directory, create a new one
         try {
-            System.out.println(databaseFile.createNewFile());
+            if (databaseFile.createNewFile()) {
+                // bw.write("0;0;0;1;1;1;0;0;0;0;0;0;0;0;0;0;0"); bw.close();
+            }
+            
         } catch (IOException ioe) {
             System.out.println("An error occured in creating database.");
             ioe.printStackTrace();
@@ -144,10 +147,12 @@ class studentDatabase extends CourseDatabase {
             lineToWrite += ";" + grades[i];
         }
 
-        
+
         try {
-            while ((csvReader.readNext()) != null) {System.out.println("Did u even do anything");}
-            bw.newLine(); // fix nothing on line 1 1 2
+            System.out.println("DID YOU DO ANYTHING???"); Scan.caro.next();
+            while ((csvReader.readNext()) != null) {
+            }
+            bw.newLine();
             bw.write(lineToWrite); bw.close();
         } catch (Exception e) {
             e.printStackTrace();
@@ -183,7 +188,7 @@ class studentDatabase extends CourseDatabase {
             e.printStackTrace();
         }
 
-        createNewDatabase(databaseFile); readDatabase(studentList);
+        createNewDatabase(databaseFile, bWriter); readDatabase(studentList);
 
         int choice = 10; String errorMessage = "";
         while (true) {
