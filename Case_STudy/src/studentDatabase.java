@@ -1,19 +1,17 @@
 import com.opencsv.*;
 import com.opencsv.exceptions.CsvValidationException;
 
-import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.*;
 import java.io.*;
 
 class studentDatabase extends CourseDatabase {
-    int studentID; String lastName; String firstName; LocalDate birthday; String address; String guardian; double gwa; int[] courseGrade = new int[8];  // Student attributes
-    static CSVReader csvReader = null;                                                                                              // I placed CSVReader here because I don't want to keep passing it through methods so I made it static
-
+    int studentID; String lastName; String firstName; LocalDate birthday; String address; String guardian; double gwa; int[] courseGrade = new int[8];  
+    static CSVReader csvReader = null;                                                                                          
     studentDatabase() {
     }
 
-    studentDatabase(int id, String ln, String fn, LocalDate bd, String a, String g, double gwa, int[] cg) {                                                   // constructor
+    studentDatabase(int id, String ln, String fn, LocalDate bd, String a, String g, double gwa, int[] cg) {                                                  
         studentID = id;
         lastName = ln;
         firstName = fn;
@@ -23,19 +21,34 @@ class studentDatabase extends CourseDatabase {
         courseGrade = cg;
     }
 
-    static void createNewDatabase(File databaseFile, BufferedWriter bw) {                                                                              // METHOD - if database.csv was not found in the specified directory, create a new one
-        try {
-            if (databaseFile.createNewFile()) {
-                // bw.write("0;0;0;1;1;1;0;0;0;0;0;0;0;0;0;0;0"); bw.close();
-            }
-            
-        } catch (IOException ioe) {
-            System.out.println("An error occured in creating database.");
-            ioe.printStackTrace();
-        }
+    static ArrayList<studentDatabase> getStudentList() {
+        ArrayList<studentDatabase> studentList = new ArrayList<studentDatabase>();
+        return studentList;
     }
 
-    static void readDatabase(ArrayList<studentDatabase> studentList) {                                                              // METHOD - Reads database.csv and converts the text into objects to be added to the studentList ArrayList
+    static void createNewDatabase() {
+        String file = "database.csv"; File databaseFile = new File(file);
+
+        try {
+            csvReader = new CSVReaderBuilder(new FileReader(databaseFile))
+            .withCSVParser(new CSVParserBuilder()
+                .withSeparator(';')
+                .build())
+            .build();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        try {
+            databaseFile.createNewFile();
+        } catch (IOException ioe) {
+            System.out.println("An error occured in creating database.");
+        }
+
+        readDatabase(getStudentList());
+    }
+
+    static void readDatabase(ArrayList<studentDatabase> studentList) {                                                          
         String[] cellRow; 
 
         try {
@@ -66,101 +79,23 @@ class studentDatabase extends CourseDatabase {
         }   
     }
 
-
-
-    static studentDatabase addUser(BufferedWriter bw) {
-        int studentID; String lastName; String firstName; String address; String guardian; int[] birthday = new int[3]; double gwa = 0; int[] grades = new int[8];
-        String errorMessage = ""; String choice;
-
-        while (true) {
-            System.out.print("Input Student ID: ");
-            studentID = Scan.caro.nextInt();
-            break;
-        }
-
-        while (true) {
-            System.out.print("Input Last Name: "); Scan.caro.nextLine();
-            lastName = Scan.caro.nextLine().toUpperCase();
-            break;
-        }
-
-        while (true) {
-            System.out.print("Input First Name: ");
-            firstName = Scan.caro.nextLine().toUpperCase();
-            break;
-        }
-
-        while (true) {
-            System.out.print("Input Year of Birth: "); birthday[0] = Scan.caro.nextInt();
-            System.out.print("Input Month of Birth: "); birthday[1] = Scan.caro.nextInt();
-            System.out.print("Input Day of Birth: "); birthday[2] = Scan.caro.nextInt();
-            
-            try {
-                LocalDate.of(birthday[0], birthday[1], birthday[2]);
-                break;
-            } catch (DateTimeException dte) {
-                System.out.println("Invalid date format. Please try again.");
-            }
-        }
-
-        while (true) {
-            System.out.print("Input Address: "); Scan.caro.nextLine();
-            address = Scan.caro.nextLine().toUpperCase();
-            break;
-        }
-
-        while (true) {
-            System.out.print("Input Guardian Name: ");
-            guardian = Scan.caro.nextLine().toUpperCase();
-            break;
-        }
-        String lineToWrite = 
-        studentID + ";" + lastName + ";" + firstName + ";" + 
-        birthday[0] + ";" + birthday[1] + ";" + birthday[2] + 
-        ";" + address + ";" + guardian + ";";
-
-        System.out.print("Do you want to input your grades?"); 
-        errorMessage = "";
-        while (true) {
-            System.out.println(errorMessage);
-            System.out.print("Input [Y/N]: "); choice = Scan.caro.next().toUpperCase(); System.out.println(choice);
-                if (choice.equals("Y")) {
-                    grades = CourseDatabase.inputGrades();
-
-                    for (int i = 0; i < grades.length; i++) {
-                        gwa += grades[i];
-                    }
-                    gwa /= grades.length;
-
-                    break;
-                } else if (choice.equals("N")) {
-                    for (int i = 0; i < grades.length; i++) {
-                        grades[i] = -1;
-                    }
-                    gwa = -1;
-                    break;
-                } else errorMessage = "Invalid Choice";
-            }
-
-            lineToWrite += gwa;
-        for (int i = 0; i < grades.length; i++) {
-            lineToWrite += ";" + grades[i];
-        }
-
-
+    static void writeUserToFile(String lineToWrite) {
+        BufferedReader br = null; BufferedWriter bw = null;
+        int rowIndex = 0;
         try {
-            System.out.println("DID YOU DO ANYTHING???"); Scan.caro.next();
-            while ((csvReader.readNext()) != null) {
+            br = new BufferedReader(new FileReader(new File("database.csv")));
+            bw = new BufferedWriter(new FileWriter(new File("database.csv"), true));
+            while ((br.readLine()) != null) {
+                rowIndex++; 
             }
-            bw.newLine();
-            bw.write(lineToWrite); bw.close();
+            
+            if (rowIndex > 0) bw.newLine();
+            bw.write(lineToWrite); br.close(); bw.close();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
-        return new studentDatabase(studentID, lastName, firstName, LocalDate.of(birthday[0], birthday[1], birthday[2]), address, guardian, gwa, grades);
-    }  
-    
+    }
 
     static void printAll(ArrayList<studentDatabase> studentList) {
         System.out.println("LAST NAME\tFIRST NAME\tADDRESS\tGUARDIAN");
@@ -170,49 +105,4 @@ class studentDatabase extends CourseDatabase {
         Scan.caro.next();
     }
 
-
-    public static void main(String[] args) {
-        ArrayList<studentDatabase> studentList = new ArrayList<studentDatabase>(); CourseDatabase.addCourse();
-        String file = "database.csv"; 
-        File databaseFile = new File(file);
-        BufferedWriter bWriter = null;
-
-        try {
-            bWriter = new BufferedWriter(new FileWriter(databaseFile, true)); 
-            csvReader = new CSVReaderBuilder(new FileReader(databaseFile))
-            .withCSVParser(new CSVParserBuilder()
-                .withSeparator(';')
-                .build())
-            .build();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        createNewDatabase(databaseFile, bWriter); readDatabase(studentList);
-
-        int choice = 10; String errorMessage = "";
-        while (true) {
-            clearConsole.main();
-            System.out.println("[1] Add User\n[2] Check Database");
-            System.out.println(errorMessage);
-            System.out.print("Input choice: ");
-            
-            try {
-                choice = Scan.caro.nextInt();
-            } catch (InputMismatchException nfe) {
-                errorMessage = "Input is not an integer";
-                Scan.caro.next();
-            }
-
-            if (choice == 1) {
-                clearConsole.main();
-                studentList.add(addUser(bWriter));
-            } else if (choice == 2) {
-                clearConsole.main();
-                printAll(studentList);
-            } else if (choice == 0) {
-                break;
-            }
-        }
-    }
 }
