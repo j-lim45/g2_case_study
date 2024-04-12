@@ -30,15 +30,6 @@ class studentDatabase {
     static void createNewDatabase() { // class to create new File class and database.csv file
         String file = "database.csv"; File databaseFile = new File(file);
 
-        try { // csvreader setup
-            csvReader = new CSVReaderBuilder(new FileReader(databaseFile))
-            .withCSVParser(new CSVParserBuilder()
-                .withSeparator(';')
-                .build())
-            .build();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
         try { // method to create new file
             databaseFile.createNewFile();
@@ -53,6 +44,17 @@ class studentDatabase {
         String[] cellRow; // String that will hold the String for each row in the database.csv file
 
         try {
+
+            try { // csvreader setup
+                csvReader = new CSVReaderBuilder(new FileReader(new File("database.csv")))
+                .withCSVParser(new CSVParserBuilder()
+                    .withSeparator(';')
+                    .build())
+                .build();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
             int databaseIndex = 0;
             while ((cellRow = csvReader.readNext()) != null) { // while (csvReader does not read a line that contains nothing) { convert the line contents into each attributes of every object (student)  }
                 studentList.add(new studentDatabase());                              
@@ -98,13 +100,4 @@ class studentDatabase {
             if (Scan.caro.next().toUpperCase().equals("Y")) e.printStackTrace();
         }
     }
-
-    static void printAll(ArrayList<studentDatabase> studentList) {
-        System.out.println("LAST NAME\tFIRST NAME\tADDRESS\tGUARDIAN");
-        for (int i = 0; i < studentList.size(); i++) {
-            System.out.println(studentList.get(i).lastName + "\t" + studentList.get(i).firstName + "\t" + studentList.get(i).address + "\t" + studentList.get(i).guardian);
-        }
-        Scan.caro.next();
-    }
-
 }

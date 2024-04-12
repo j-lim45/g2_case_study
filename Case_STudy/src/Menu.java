@@ -63,7 +63,7 @@ class Menu {
         while (true) {
             clearConsole.main(); displayLogo(); addUserTab("|                 Enter ID Number:                   |\n|(ID must be 8 characters long and starts with '209')|", errorMessage);
             try {
-                studentID = Scan.caro.nextInt();
+                System.out.print("Enter ID: "); studentID = Scan.caro.nextInt();
             } catch (Exception e) {
                 errorMessage = "ERROR: ID Number is not a valid input."; Scan.caro.next();
             }
@@ -115,14 +115,18 @@ class Menu {
         }
 
         // BIRTHDAY 
+        errorMessage = "";
         while (true) {
                 try {
                     clearConsole.main(); displayLogo(); addUserTab("|          Enter Year of Birth (e.g '1986')          |", errorMessage);
                     System.out.print("Input Year: "); birthday[0] = Scan.caro.nextInt();
+                    errorMessage = "";
                     clearConsole.main(); displayLogo(); addUserTab("|       Enter Month of Birth (e.g '5' for May)       |", errorMessage);
                     System.out.print("Input Month of Birth: "); birthday[1] = Scan.caro.nextInt();
+                    errorMessage = "";
                     clearConsole.main(); displayLogo(); addUserTab("|     Enter Day of Birth (e.g '15' for May 15th)     |", errorMessage);
                     System.out.print("Input Day of Birth: "); birthday[2] = Scan.caro.nextInt();
+                    errorMessage = "";
                     LocalDate.of(birthday[0], birthday[1], birthday[2]);
                     break;
                 } catch (DateTimeException dte) {
@@ -133,6 +137,7 @@ class Menu {
             }
 
         // ADDRESS
+        errorMessage = "";
         while (true) {
             clearConsole.main(); displayLogo(); addUserTab("| Enter City Address (e.g 'Municipality of Angeles') |", errorMessage);
             System.out.print("Input Address: "); Scan.caro.nextLine();
@@ -208,10 +213,36 @@ class Menu {
     }
 
     static void printDatabase(ArrayList<studentDatabase> studentList) {
-        clearConsole.main();
-        System.out.println("  " + "STUDENT ID\tLAST NAME\t\tFIRST NAME\t\tBIRTHDAY\t\tADDRESS\t\tGUARDIAN NAME\t\tGWA");
-        System.out.println("  " + "=============================================================================================================================================5=");
-        
+        int tab = 0; String choice; String errorMessage = "";
+        while (true) {
+            clearConsole.main(); displayLogo();
+            System.out.println("  " + "STUDENT ID\tLAST NAME\tFIRST NAME\t\tBIRTHDAY\t\tADDRESS\t\t\tGUARDIAN NAME\t\tGWA");
+            System.out.println("  " + "===============================================================================================================================================");
+
+            for (int i = tab; i < tab+10; i++) {
+                System.out.println("[" + (i+1) + "] " + studentList.get(i).studentID + "\t" + studentList.get(i).lastName + "\r\t\t\t\t" + studentList.get(i).firstName + "\r\t\t\t\t\t\t\t" + studentList.get(i).birthday + "\r\t\t\t\t\t\t\t\t\t\t" + studentList.get(i).address + "\r\t\t\t\t\t\t\t\t\t\t\t\t\t" + studentList.get(i).guardian + "\r\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\b" + String.format("%.2f", studentList.get(i).gwa));
+                if (i == studentList.size()-1) break;
+            }
+            System.out.println("  " + "===============================================================================================================================================");
+            if (tab > 0) {
+                System.out.print("[BACK]");
+            }
+            if ((tab+9) < studentList.size()) {
+                System.out.print("\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t[NEXT]");
+            }
+            System.err.println("\n" + errorMessage);
+            System.out.print("\nInput:"); choice = Scan.caro.next().toUpperCase();
+            if (choice.equals("NEXT") && ((tab+9) < studentList.size())) {
+                tab += 9;
+            } else if (choice.equals("BACK") && (tab > 0)) {
+                tab -= 9;
+            } else if (choice.equals("X")) {
+                break;
+            } else {
+                errorMessage = "ERROR: Invalid Choice";
+            }
+        }
+
     }
     
 

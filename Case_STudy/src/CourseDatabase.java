@@ -40,7 +40,6 @@ public class CourseDatabase {
                     System.out.print(getCourseList().get(i).shortName + ": "); grades[i] = Scan.caro.nextInt();
                 } catch (Exception e) {
                     System.out.println("Input is not valid.");
-                    e.printStackTrace();
                     Scan.caro.next();
                     continue;
                 }
