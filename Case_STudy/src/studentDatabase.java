@@ -23,6 +23,7 @@ class studentDatabase {
 
     static ArrayList<studentDatabase> getStudentList() { // get method to get studentlist
         ArrayList<studentDatabase> studentList = new ArrayList<studentDatabase>(); // contains the objects (students) which holds a lot of attributes such as studentID, lastName, firstName, etc.
+        readDatabase(studentList);
         return studentList;
     }
 
@@ -93,7 +94,8 @@ class studentDatabase {
             bw.write(lineToWrite); br.close(); bw.close(); // writes the actual line
 
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.print("An error occured. Would you want to print stack trace?\n\nInput ['Y' to Print]:");
+            if (Scan.caro.next().toUpperCase().equals("Y")) e.printStackTrace();
         }
     }
 

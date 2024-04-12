@@ -1,16 +1,21 @@
 import java.time.DateTimeException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 class Menu {
 
     static void subMenu1() {
-        clearConsole.main(); displayLogo(); displaySubMenu1();
-
-        String choice;
-        System.out.print("\n\t\t\b\bEnter your choice: "); choice = Scan.caro.next();
-        switch (choice) {
-            case "1":
+        String errorMessage = ""; String choice;
+        while (true) {
+            clearConsole.main(); displayLogo(); displaySubMenu1();
+            System.out.println(errorMessage);
+            System.out.print("\n\t\t\b\bEnter your choice: "); choice = Scan.caro.next();
+            if (choice.equals("1")) {
                 addUser();
+                errorMessage = "";
+            }
+            else if (choice.equals("0"))    break;
+            else errorMessage = "ERROR: Invalid input. Please enter a valid option. [0-2]";
         }
     }
 
@@ -66,13 +71,13 @@ class Menu {
             else if (!String.valueOf(studentID).startsWith("209"))   errorMessage = "ERROR: ID Number must start with \"209\".";
             else                                                            break;
         }
-
+        Scan.caro.nextLine();
         // LAST NAME
         errorMessage = ""; boolean invalid = true;
         while (invalid) {
             clearConsole.main(); displayLogo(); addUserTab("|                 Enter Last Name:                   |", errorMessage);
 
-            System.out.print("Input Last Name: "); Scan.caro.nextLine();
+            System.out.print("Input Last Name: ");
             lastName = Scan.caro.nextLine().toUpperCase();
 
             invalid = false;
@@ -201,6 +206,13 @@ class Menu {
         System.out.println("└────────────────────────────────────────────────────┘");
         System.err.println(errorMessage);
     }
+
+    static void printDatabase(ArrayList<studentDatabase> studentList) {
+        clearConsole.main();
+        System.out.println("  " + "STUDENT ID\tLAST NAME\t\tFIRST NAME\t\tBIRTHDAY\t\tADDRESS\t\tGUARDIAN NAME\t\tGWA");
+        System.out.println("  " + "=============================================================================================================================================5=");
+        
+    }
     
 
     public static void main(String[] args) {
@@ -219,10 +231,11 @@ class Menu {
                     break;
 
                 case "2":
-                    System.out.println("Hi");
+                    printDatabase(studentDatabase.getStudentList());
                     break;
 
                 case "0":
+                    clearConsole.main(); System.out.println("Program ended.");
                     System.exit(0);
 
                 default:
