@@ -13,7 +13,7 @@ class Menu {
             if (choice.equals("1")) {
                 addUser();
                 errorMessage = "";
-            }
+            } else if (choice.equals("2")) editUser();
             else if (choice.equals("0"))    break;
             else errorMessage = "ERROR: Invalid input. Please enter a valid option. [0-2]";
         }
@@ -202,6 +202,13 @@ class Menu {
         studentDatabase.writeUserToFile(lineToWrite);
 
         }
+
+    static void editUser() {
+        while (true) {
+            clearConsole.main(); displayLogo(); displayEditTab();
+            editUserTable(studentDatabase.getStudentList());
+        }
+    }
     
 
     static void menuTab(String fieldPrompt, String errorMessage) {
@@ -216,6 +223,53 @@ class Menu {
         System.out.println("┌────────────────────────────────────────────────────┐");
         System.out.println("|                  Database Table                    |");
         System.out.println("└────────────────────────────────────────────────────┘");
+    }
+
+    static void displayEditTab() {
+        System.out.println("┌────────────────────────────────────────────────────┐");
+        System.out.println("|                     EDIT USER                      |");
+        System.out.println("└────────────────────────────────────────────────────┘");
+    }
+
+    static void gradeReport(String name) {
+        System.out.println("┌────────────────────────────────────────────────────┐");
+        System.out.printf("|              %s GRADE REPORT\r\t\t\t\t\t\t\t\b\b\b|\n", name);
+        System.out.println("└────────────────────────────────────────────────────┘");
+    }
+
+    static void editUserTable(ArrayList<studentDatabase> studentList) {
+        int tab = 0; String choice; String errorMessage = "";
+        while (true) {
+            clearConsole.main(); displayLogo(); displayTableTab();
+            System.out.println("  " + "STUDENT ID\tLAST NAME\tFIRST NAME\t\tBIRTHDAY\t\tADDRESS\t\t\tGUARDIAN NAME\t\tGWA");
+            System.out.println("  " + "===============================================================================================================================================");
+
+            for (int i = tab; i < tab+10; i++) {
+                System.out.println("[" + (i+1) + "] " + studentList.get(i).studentID + "\t" + studentList.get(i).lastName + "\r\t\t\t\t" + studentList.get(i).firstName + "\r\t\t\t\t\t\t\t" + studentList.get(i).birthday + "\r\t\t\t\t\t\t\t\t\t\t" + studentList.get(i).address + "\r\t\t\t\t\t\t\t\t\t\t\t\t\t" + studentList.get(i).guardian + "\r\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\b" + String.format("%.2f", studentList.get(i).gwa));
+                if (i == studentList.size()-1) break;
+            }
+            System.out.println("  " + "===============================================================================================================================================");
+            if (tab > 0) {
+                System.out.print("[BACK]");
+            }
+            if ((tab+9) < studentList.size()) {
+                System.out.print("\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t[NEXT]");
+            }
+            System.err.println("\n" + errorMessage);
+            System.out.print("Enter Index Number of Student to Edit Info. [BACK/NEXT] to navigate the table. [X] to go back.");
+            System.out.print("\nInput: "); choice = Scan.caro.next().toUpperCase();
+            if (choice.equals("NEXT") && ((tab+9) < studentList.size())) {
+                tab += 9;
+                errorMessage = "";
+            } else if (choice.equals("BACK") && (tab > 0)) {
+                tab -= 9;
+                errorMessage = "";
+            } else if (choice.equals("X")) {
+                break;
+            } else {
+                errorMessage = "ERROR: Invalid Choice";
+            }
+        }
     }
 
     static void printDatabase(ArrayList<studentDatabase> studentList) {
@@ -239,19 +293,41 @@ class Menu {
             System.err.println("\n" + errorMessage);
             System.out.print("Enter Index Number of Student to view Grades. [NEXT/BACK] to navigate the table. [X] to go back.");
             System.out.print("\nInput: "); choice = Scan.caro.next().toUpperCase();
-            if (choice.equals("NEXT") && ((tab+9) < studentList.size())) {
-                tab += 9;
-                errorMessage = "";
-            } else if (choice.equals("BACK") && (tab > 0)) {
-                tab -= 9;
-                errorMessage = "";
-            } else if (choice.equals("X")) {
-                break;
-            } else {
-                errorMessage = "ERROR: Invalid Choice";
+
+            try {
+                
+                if ((Integer.parseInt(choice)-1) >= 0 && (Integer.parseInt(choice)-1) <= studentList.size()) {
+                    viewGrades(studentList, (Integer.parseInt(choice)-1));
+                    errorMessage = "";
+                } else {
+                    errorMessage = "ERROR: Index number does not exist.";
+                }
+            } catch (Exception e) {
+                if (choice.equals("NEXT") && ((tab+9) < studentList.size())) {
+                    tab += 9;
+                    errorMessage = "";
+                } else if (choice.equals("BACK") && (tab > 0)) {
+                    tab -= 9;
+                    errorMessage = "";
+                } else if (choice.equals("X")) {
+                    break;
+                }
+                else {
+                    errorMessage = "ERROR: Invalid Choice";
+                }
             }
         }
+    }
 
+    static void viewGrades(ArrayList<studentDatabase> studentList, int studentIndex) {
+            clearConsole.main(); displayLogo(); gradeReport(studentList.get(studentIndex).firstName + " " + studentList.get(studentIndex).lastName);
+            System.out.println("COURSE NAME\t\t\tGRADE\n=======================================");
+            for (int i = 0; i < 8; i++) {
+                System.out.printf("%s\r\t\t\t\t  %d\n", CourseDatabase.getCourseList().get(i).shortName, studentList.get(i).courseGrade[i]);
+            }
+            System.out.printf("General Weighted Average\t%.2f\n\n", studentList.get(studentIndex).gwa);
+            
+            System.out.print("Press any key to return: "); Scan.caro.next();
     }
     
 
