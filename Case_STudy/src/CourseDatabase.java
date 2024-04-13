@@ -39,8 +39,6 @@ public class CourseDatabase {
                     System.out.print( "Input Grade [0-100]: "); grades[i] = Scan.caro.nextInt();
                 } catch (Exception e) {
                     errorMessage = "ERROR: Input is not valid";
-                    System.out.println("Input is not valid.");
-                    Scan.caro.next();
                     continue;
                 }
 
