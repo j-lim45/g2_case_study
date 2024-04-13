@@ -29,35 +29,34 @@ public class CourseDatabase {
     }
 
     static int[] inputGrades() {
-        int[] grades = new int[8]; int i = 0; String choice;
+        int[] grades = new int[8]; int i = 0; String choice; String errorMessage = "";
 
         while (true) {
-            clearConsole.main();
-            System.out.print("INPUT GRADES (0-100): \n");
             i = 0;
             while (i < grades.length) {
+                clearConsole.main(); Menu.displayLogo(); Menu.menuTab("|\t\t    " + getCourseList().get(i).shortName + "\r\t\t\t\t\t\t", errorMessage);
                 try {
-                    System.out.print(getCourseList().get(i).shortName + ": "); grades[i] = Scan.caro.nextInt();
+                    System.out.print( "Input Grade [0-100]: "); grades[i] = Scan.caro.nextInt();
                 } catch (Exception e) {
+                    errorMessage = "ERROR: Input is not valid";
                     System.out.println("Input is not valid.");
                     Scan.caro.next();
                     continue;
                 }
 
-                if (grades[i] < 100 & grades[i] > 0) {
+                if (grades[i] <= 100 & grades[i] >= 0) {
                     i++;
                     continue;
                 }
-                System.out.println("Grade is outside range.");
+                errorMessage = "Grade is outside range.";
             }
 
-            clearConsole.main();
-            System.out.println("CONFIRM GRADES");
+            clearConsole.main(); Menu.displayLogo(); Menu.menuTab("|                 CONFIRM GRADES                     |", errorMessage);
             for (int j = 0; j < getCourseList().size(); j++) {
                 System.out.println(getCourseList().get(j).shortName + ": " + grades[j]);
             }
 
-            System.out.println("\nConfirm Grades [Y/N]: "); choice = Scan.caro.next().toUpperCase();
+            System.out.print("\nConfirm Grades [Y/N]: "); choice = Scan.caro.next().toUpperCase();
             while (true) {
                 if (choice.equals("Y")) {
                     return grades;

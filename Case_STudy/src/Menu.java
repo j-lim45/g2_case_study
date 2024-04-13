@@ -61,7 +61,7 @@ class Menu {
 
         // ID NUMBER
         while (true) {
-            clearConsole.main(); displayLogo(); addUserTab("|                 Enter ID Number:                   |\n|(ID must be 8 characters long and starts with '209')|", errorMessage);
+            clearConsole.main(); displayLogo(); menuTab("|                 Enter ID Number:                   |\n|(ID must be 8 characters long and starts with '209')|", errorMessage);
             try {
                 System.out.print("Enter ID: "); studentID = Scan.caro.nextInt();
             } catch (Exception e) {
@@ -75,7 +75,7 @@ class Menu {
         // LAST NAME
         errorMessage = ""; boolean invalid = true;
         while (invalid) {
-            clearConsole.main(); displayLogo(); addUserTab("|                 Enter Last Name:                   |", errorMessage);
+            clearConsole.main(); displayLogo(); menuTab("|                 Enter Last Name:                   |", errorMessage);
 
             System.out.print("Input Last Name: ");
             lastName = Scan.caro.nextLine().toUpperCase();
@@ -96,7 +96,7 @@ class Menu {
         // FIRST NAME
         errorMessage = ""; invalid = true;
         while (invalid) {
-            clearConsole.main(); displayLogo(); addUserTab("|                 Enter First Name:                  |", errorMessage);
+            clearConsole.main(); displayLogo(); menuTab("|                 Enter First Name:                  |", errorMessage);
 
                 System.out.print("Input First Name: ");
                 firstName = Scan.caro.nextLine().toUpperCase();
@@ -118,13 +118,13 @@ class Menu {
         errorMessage = "";
         while (true) {
                 try {
-                    clearConsole.main(); displayLogo(); addUserTab("|          Enter Year of Birth (e.g '1986')          |", errorMessage);
+                    clearConsole.main(); displayLogo(); menuTab("|          Enter Year of Birth (e.g '1986')          |", errorMessage);
                     System.out.print("Input Year: "); birthday[0] = Scan.caro.nextInt();
                     errorMessage = "";
-                    clearConsole.main(); displayLogo(); addUserTab("|       Enter Month of Birth (e.g '5' for May)       |", errorMessage);
+                    clearConsole.main(); displayLogo(); menuTab("|       Enter Month of Birth (e.g '5' for May)       |", errorMessage);
                     System.out.print("Input Month of Birth: "); birthday[1] = Scan.caro.nextInt();
                     errorMessage = "";
-                    clearConsole.main(); displayLogo(); addUserTab("|     Enter Day of Birth (e.g '15' for May 15th)     |", errorMessage);
+                    clearConsole.main(); displayLogo(); menuTab("|     Enter Day of Birth (e.g '15' for May 15th)     |", errorMessage);
                     System.out.print("Input Day of Birth: "); birthday[2] = Scan.caro.nextInt();
                     errorMessage = "";
                     LocalDate.of(birthday[0], birthday[1], birthday[2]);
@@ -139,7 +139,7 @@ class Menu {
         // ADDRESS
         errorMessage = "";
         while (true) {
-            clearConsole.main(); displayLogo(); addUserTab("| Enter City Address (e.g 'Municipality of Angeles') |", errorMessage);
+            clearConsole.main(); displayLogo(); menuTab("| Enter City Address (e.g 'Municipality of Angeles') |", errorMessage);
             System.out.print("Input Address: "); Scan.caro.nextLine();
             address = Scan.caro.nextLine().toUpperCase();
             break;
@@ -148,7 +148,7 @@ class Menu {
         // GUARDIAN NAME
         errorMessage = ""; invalid = true;
         while (invalid) {
-            clearConsole.main(); displayLogo(); addUserTab("|     Enter Guardian Name (e.g 'JUAN DELA CRUZ')     |", errorMessage);
+            clearConsole.main(); displayLogo(); menuTab("|     Enter Guardian Name (e.g 'JUAN DELA CRUZ')     |", errorMessage);
 
                 System.out.print("Input Guardian: ");
                 guardian = Scan.caro.nextLine().toUpperCase();
@@ -173,7 +173,7 @@ class Menu {
 
         errorMessage = ""; String choice;
         while (true) {
-            clearConsole.main(); displayLogo(); addUserTab("|        Do you want to input your grades?           |", errorMessage);
+            clearConsole.main(); displayLogo(); menuTab("|        Do you want to input your grades?           |", errorMessage);
             System.out.print("Input [Y/N]: "); choice = Scan.caro.next().toUpperCase();
                 if (choice.equals("Y")) {
                     grades = CourseDatabase.inputGrades();
@@ -186,11 +186,11 @@ class Menu {
                     break;
                 } else if (choice.equals("N")) {
                     for (int i = 0; i < grades.length; i++) {
-                        grades[i] = -1;
+                        grades[i] = 0;
                     }
-                    gwa = -1;
+                    gwa = 0;
                     break;
-                } else errorMessage = "Invalid Choice";
+                } else errorMessage = "ERROR: Invalid Choice";
             }
 
             lineToWrite += gwa;
@@ -204,7 +204,7 @@ class Menu {
         }
     
 
-    static void addUserTab(String fieldPrompt, String errorMessage) {
+    static void menuTab(String fieldPrompt, String errorMessage) {
         System.out.println("|                    ADD USER                        |");
         System.out.println("┌────────────────────────────────────────────────────┐");
         System.out.println(fieldPrompt);
@@ -212,10 +212,16 @@ class Menu {
         System.err.println(errorMessage);
     }
 
+    static void displayTableTab() {
+        System.out.println("┌────────────────────────────────────────────────────┐");
+        System.out.println("|                  Database Table                    |");
+        System.out.println("└────────────────────────────────────────────────────┘");
+    }
+
     static void printDatabase(ArrayList<studentDatabase> studentList) {
         int tab = 0; String choice; String errorMessage = "";
         while (true) {
-            clearConsole.main(); displayLogo();
+            clearConsole.main(); displayLogo(); displayTableTab();
             System.out.println("  " + "STUDENT ID\tLAST NAME\tFIRST NAME\t\tBIRTHDAY\t\tADDRESS\t\t\tGUARDIAN NAME\t\tGWA");
             System.out.println("  " + "===============================================================================================================================================");
 
@@ -231,11 +237,14 @@ class Menu {
                 System.out.print("\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t[NEXT]");
             }
             System.err.println("\n" + errorMessage);
-            System.out.print("\nInput:"); choice = Scan.caro.next().toUpperCase();
+            System.out.print("Enter Index Number of Student to view Grades. [NEXT/BACK] to navigate the table. [X] to go back.");
+            System.out.print("\nInput: "); choice = Scan.caro.next().toUpperCase();
             if (choice.equals("NEXT") && ((tab+9) < studentList.size())) {
                 tab += 9;
+                errorMessage = "";
             } else if (choice.equals("BACK") && (tab > 0)) {
                 tab -= 9;
+                errorMessage = "";
             } else if (choice.equals("X")) {
                 break;
             } else {
