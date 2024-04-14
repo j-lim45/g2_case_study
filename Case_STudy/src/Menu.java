@@ -386,23 +386,26 @@ class Menu {
                     return -1;
                 }
                 else {
-                    errorMessage = "ERROR: Invalid Choice";
+                    errorMessage = "ERROR: Invalid Choice.";
                 }
             }
         }
     }
 
     static void deleteSubMenu() {
-        String choice;
+        String choice; String errorMessage = "";
         while (true) {
-            clearConsole.main(); displayLogo(); displayDeleteTab(); displayDeleteMenu();
-            
+            clearConsole.main(); displayLogo(); displayDeleteTab(); displayDeleteMenu(); System.err.println(errorMessage);
             System.out.print("Input [0-2]: "); choice = Scan.caro.next();
             if (choice.equals("1")) {
                 deleteUserTable(studentDatabase.getStudentList());
             } else if (choice.equals("2")) {
                 deleteAll(studentDatabase.getStudentList());
                 break;
+            } else if (choice.equals("0")) {
+                break;
+            } else {
+                errorMessage = "ERROR: Invalid Choice.";
             }
         }
     }
