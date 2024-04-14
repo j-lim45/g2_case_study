@@ -153,5 +153,4 @@ public class setUserAttribute {
             errorMessage = "Grade is outside range.";
         }
     }
-
 }
