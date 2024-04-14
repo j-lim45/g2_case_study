@@ -204,35 +204,95 @@ class Menu {
         }
 
     static void editUser(ArrayList<studentDatabase> studentList) {
-        String choice; setUserAttribute set = new setUserAttribute();
+        String choice; String errorMessage = ""; setUserAttribute set = new setUserAttribute();
         while (true) {
+            
             clearConsole.main(); displayLogo(); displayEditTab();
             int studentIndex = editUserTable(studentList);
             if (studentIndex == -1) break;
-            clearConsole.main(); displayLogo(); displayEditTab();
-            System.out.println("CHOOSE WHAT ATTRIBUTE TO EDIT [1-13]: ");
-            System.out.printf("\n[1] Last Name: \r\t\t\t\t%s", studentList.get(studentIndex).lastName);
-            System.out.printf("\n[2] First Name: \r\t\t\t\t%s", studentList.get(studentIndex).firstName);
-            System.out.printf("\n[3] Birthday: \r\t\t\t\t%s", studentList.get(studentIndex).birthday);
-            System.out.printf("\n[4] Address: \r\t\t\t\t%s", studentList.get(studentIndex).address);
-            System.out.printf("\n[5] Guardian Name: \r\t\t\t\t%s", studentList.get(studentIndex).guardian);
-            for (int i = 0; i < CourseDatabase.getCourseList().size(); i++) {
-                System.out.printf("\n[%d] %s Grade: \r\t\t\t\t%d", i+6, CourseDatabase.getCourseList().get(i).shortName, studentList.get(studentIndex).courseGrade[0]);
+
+            int studentID = studentList.get(studentIndex).studentID;
+            String lastName = studentList.get(studentIndex).lastName;
+            String firstName = studentList.get(studentIndex).firstName;
+            LocalDate birthday = studentList.get(studentIndex).birthday;
+            String address = studentList.get(studentIndex).address;
+            String guardian = studentList.get(studentIndex).guardian;
+            int[] courseGrade = studentList.get(studentIndex).courseGrade;
+
+            while (true) {
+                clearConsole.main(); displayLogo(); displayEditTab();
+                System.out.println("CHOOSE WHAT ATTRIBUTE TO EDIT [1-13]: ");
+                System.out.printf("\n[1] Student ID: \r\t\t\t\t%s", studentID);
+                System.out.printf("\n[2] Last Name: \r\t\t\t\t%s", lastName);
+                System.out.printf("\n[3] First Name: \r\t\t\t\t%s", firstName);
+                System.out.printf("\n[4] Birthday: \r\t\t\t\t%s", birthday);
+                System.out.printf("\n[5] Address: \r\t\t\t\t%s", address);
+                System.out.printf("\n[6] Guardian Name: \r\t\t\t\t%s", guardian);
+                for (int i = 0; i < CourseDatabase.getCourseList().size(); i++) {
+                    System.out.printf("\n[%d] %s Grade: \r\t\t\t\t%d", i+7, CourseDatabase.getCourseList().get(i).shortName, courseGrade[i]);
+                }
+                System.err.println("\n\n" + errorMessage);
+                System.out.println("[1-13] to edit attribute. [X] to cancel. [CONFIRM] to confirm changes.");
+                System.out.print("INPUT: "); choice = Scan.caro.next().toUpperCase();
+                if (choice.equals("1")) {
+                    studentID = set.setStudentID();
+                    
+                } else if (choice.equals("2")) {
+                    lastName = set.setLastName();
+                } else if (choice.equals("3")) {
+                    firstName = set.setFirstName();
+                } else if (choice.equals("4")) {
+                    birthday =  set.setBirthday();
+                } else if (choice.equals("5")) {
+                    address = set.setAddress();
+                } else if (choice.equals("6")) {
+                    guardian = set.setGuardian();
+                } else if (choice.equals("7")) {
+                    courseGrade[0] = set.setCourseGrade(0);
+                } else if (choice.equals("8")) {
+                    courseGrade[1] = set.setCourseGrade(1);
+                } else if (choice.equals("9")) {
+                    courseGrade[2] = set.setCourseGrade(2);
+                } else if (choice.equals("10")) {
+                    courseGrade[3] = set.setCourseGrade(3);
+                } else if (choice.equals("11")) {
+                    courseGrade[4] = set.setCourseGrade(4);
+                } else if (choice.equals("12")) {
+                    courseGrade[5] = set.setCourseGrade(5);
+                } else if (choice.equals("13")) {
+                    courseGrade[6] = set.setCourseGrade(6);
+                } else if (choice.equals("14")) {
+                    courseGrade[7] = set.setCourseGrade(7);
+                } else if (choice.equals("X")) {
+                    break;
+                } else if (choice.equals("CONFIRM")) {
+                    double gwa = 0;
+                    for (int i = 0; i < CourseDatabase.getCourseList().size(); i++) {
+                        gwa += courseGrade[i];
+                    }
+                    gwa /= CourseDatabase.getCourseList().size();
+                    
+                    studentList.get(studentIndex).studentID = studentID;
+                    studentList.get(studentIndex).lastName = lastName;
+                    studentList.get(studentIndex).firstName = firstName;
+                    studentList.get(studentIndex).birthday = birthday;
+                    studentList.get(studentIndex).address = address;
+                    studentList.get(studentIndex).guardian = guardian;
+                    for (int i = 0; i < CourseDatabase.getCourseList().size(); i++) {
+                        studentList.get(studentIndex).courseGrade[i] = courseGrade[i];
+                    }
+                    studentList.get(studentIndex).gwa = gwa;
+
+                    studentDatabase.reWriteFile(studentList);
+                    clearConsole.main(); displayLogo(); displayEditTab(); System.out.println("Changes succesfully made.");
+                    System.out.print("\nInput any key to continue: "); Scan.caro.next();
+                    break;
+                }
+                else {
+                    errorMessage = "ERROR: Invalid input.";
+                }
             }
-            System.out.println("\nINPUT: "); choice = Scan.caro.next();
-            if (choice.equals("1")) {
-                String lastName = set.setLastName();
-            } else if (choice.equals("2")) {
-                String firstName = set.setFirstName();
-            } else if (choice.equals("3")) {
-                int[] birthday =  set.setBirthday();
-            } else if (choice.equals("4")) {
-                String address = set.setAddress();
-            } else if (choice.equals("5")) {
-                String guardian = set.setGuardian();
-            } else if (choice.equals("6")) {
-                
-            }
+            break;
         }
 
     }
@@ -327,7 +387,7 @@ class Menu {
                 System.out.print("\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t[NEXT]");
             }
             System.err.println("\n" + errorMessage);
-            System.out.print("Enter Index Number of Student to view Grades. [NEXT/BACK] to navigate the table. [X] to go back.");
+            System.out.print("Enter Index Number of Student to view Grades. [BACK/NEXT] to navigate the table. [X] to go back.");
             System.out.print("\nInput: "); choice = Scan.caro.next().toUpperCase();
 
             try {

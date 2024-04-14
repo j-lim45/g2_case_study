@@ -23,7 +23,7 @@ public class setUserAttribute {
         while (invalid) {
             clearConsole.main(); Menu.displayLogo(); Menu.menuTab("|                 Enter Last Name:                   |", errorMessage);
 
-            System.out.print("Input Last Name: ");
+            System.out.print("Input Last Name: "); Scan.caro.nextLine();
             lastName = Scan.caro.nextLine().toUpperCase();
 
             invalid = false;
@@ -47,7 +47,7 @@ public class setUserAttribute {
         while (invalid) {
             clearConsole.main(); Menu.displayLogo(); Menu.menuTab("|                 Enter First Name:                  |", errorMessage);
 
-            System.out.print("Input First Name: ");
+            System.out.print("Input First Name: "); Scan.caro.nextLine();
             firstName = Scan.caro.nextLine().toUpperCase();
 
             invalid = false;
@@ -65,7 +65,7 @@ public class setUserAttribute {
         return firstName;
     }
 
-    int[] setBirthday() {
+    LocalDate setBirthday() {
         int[] birthday = new int[3]; String errorMessage = "";
 
         while (true) {
@@ -87,7 +87,7 @@ public class setUserAttribute {
                 errorMessage = "Invalid Input. Please input correctly."; Scan.caro.next();
             }
         }
-        return birthday;
+        return LocalDate.of(birthday[0], birthday[1], birthday[2]);
     }
 
     String setAddress() {
@@ -96,7 +96,7 @@ public class setUserAttribute {
         while (invalid) {
             clearConsole.main(); Menu.displayLogo(); Menu.menuTab("|                 Enter First Name:                  |", errorMessage);
 
-            System.out.print("Input Address: ");
+            System.out.print("Input Address: "); Scan.caro.nextLine();
             address = Scan.caro.nextLine().toUpperCase();
 
             invalid = false;
@@ -119,7 +119,7 @@ public class setUserAttribute {
         while (invalid) {
             clearConsole.main(); Menu.displayLogo(); Menu.menuTab("|     Enter Guardian Name (e.g 'JUAN DELA CRUZ')     |", errorMessage);
 
-            System.out.print("Input Guardian: ");
+            System.out.print("Input Guardian: "); Scan.caro.nextLine();
             guardian = Scan.caro.nextLine().toUpperCase();
 
             invalid = false;
@@ -136,6 +136,23 @@ public class setUserAttribute {
         }
         return guardian;
     }
-    
+
+    int setCourseGrade(int i) {
+        String errorMessage = ""; int grade;
+        while (true) {
+            clearConsole.main(); Menu.displayLogo(); Menu.menuTab("|\t\t    " + CourseDatabase.getCourseList().get(i).shortName + "\r\t\t\t\t\t\t", errorMessage);
+            try {
+                System.out.print( "Input Grade [0-100]: "); grade = Scan.caro.nextInt();
+            } catch (Exception e) {
+                errorMessage = "ERROR: Input is not valid";
+                continue;
+            }
+
+            if (grade <= 100 && grade >= 0) {
+                return grade;
+            }
+            errorMessage = "Grade is outside range.";
+        }
+    }
 
 }

@@ -100,4 +100,33 @@ class studentDatabase {
             if (Scan.caro.next().toUpperCase().equals("Y")) e.printStackTrace();
         }
     }
+
+    static void reWriteFile(ArrayList<studentDatabase> studentList) {
+        BufferedReader br = null; BufferedWriter bw = null; PrintWriter pw = null;
+        try {      
+            pw = new PrintWriter("database.csv");
+            for (int i = 0; i < studentList.size(); i++) {
+                br = new BufferedReader(new FileReader(new File("database.csv")));
+                bw = new BufferedWriter(new FileWriter(new File("database.csv"), true));  
+                while (br.readLine() != null) {}
+                String lineToWrite = String.format("%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s", 
+                studentList.get(i).studentID, studentList.get(i).lastName, studentList.get(i).firstName, 
+                studentList.get(i).birthday.getYear(), studentList.get(i).birthday.getMonthValue(), studentList.get(i).birthday.getDayOfMonth(), 
+                studentList.get(i).address, studentList.get(i).guardian, studentList.get(i).gwa, 
+                studentList.get(i).courseGrade[0], studentList.get(i).courseGrade[1], studentList.get(i).courseGrade[2], 
+                studentList.get(i).courseGrade[3], studentList.get(i).courseGrade[4], studentList.get(i).courseGrade[5], 
+                studentList.get(i).courseGrade[6], studentList.get(i).courseGrade[7]);
+                if (i > 0) {
+                    bw.newLine();
+                }
+                else {
+                    pw.close();
+                }
+                bw.write(lineToWrite); br.close(); bw.close();
+            }
+        } catch (Exception e) {
+            System.out.print("An error occured. Print Stack Trace?: ");
+            if (Scan.caro.next().toUpperCase().equals("Y")) e.printStackTrace();
+        }
+    }
 }
