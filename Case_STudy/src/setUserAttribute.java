@@ -7,6 +7,7 @@ public class setUserAttribute {
         int studentID = 0; String errorMessage = "";
         while (true) {
             clearConsole.main(); Menu.displayLogo(); Menu.menuTab("|                 Enter ID Number:                   |\n|(ID must be 8 characters long and starts with '209')|", errorMessage);
+            
             try {
                 System.out.print("Enter ID: "); studentID = Scan.caro.nextInt();
             } catch (Exception e) {
@@ -74,12 +75,15 @@ public class setUserAttribute {
                 clearConsole.main(); Menu.displayLogo(); Menu.menuTab("|          Enter Year of Birth (e.g '1986')          |", errorMessage);
                 System.out.print("Input Year: "); birthday[0] = Scan.caro.nextInt();
                 errorMessage = "";
+
                 clearConsole.main(); Menu.displayLogo(); Menu.menuTab("|       Enter Month of Birth (e.g '5' for May)       |", errorMessage);
                 System.out.print("Input Month of Birth: "); birthday[1] = Scan.caro.nextInt();
                 errorMessage = "";
+
                 clearConsole.main(); Menu.displayLogo(); Menu.menuTab("|     Enter Day of Birth (e.g '15' for May 15th)     |", errorMessage);
                 System.out.print("Input Day of Birth: "); birthday[2] = Scan.caro.nextInt();
                 errorMessage = "";
+
                 LocalDate.of(birthday[0], birthday[1], birthday[2]);
                 break;
             } catch (DateTimeException dte) {
@@ -140,6 +144,7 @@ public class setUserAttribute {
         String errorMessage = ""; int grade;
         while (true) {
             clearConsole.main(); Menu.displayLogo(); Menu.menuTab("|\t\t    " + CourseDatabase.getCourseList().get(i).shortName + "\r\t\t\t\t\t\t", errorMessage);
+            
             try {
                 System.out.print( "Input Grade [0-100]: "); grade = Scan.caro.nextInt();
             } catch (Exception e) {

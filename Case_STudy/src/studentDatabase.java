@@ -1,9 +1,6 @@
-import com.opencsv.*; // Imports opencsv module to parse csv files
-import com.opencsv.exceptions.CsvValidationException; // imports an opencsv exception in case may it finds exception that is specific t csv
-
-import java.time.LocalDate; // imports the localdate class to parse calendar date
-import java.util.*; // scanner and arraylistt
-import java.io.*; // for importing filereader, bufferedreader, bufferedwriter, etc.
+import java.util.ArrayList; import java.io.*;
+import com.opencsv.*; import com.opencsv.exceptions.CsvValidationException;
+import java.time.LocalDate; 
 
 class studentDatabase { 
     int studentID; String lastName; String firstName; LocalDate birthday; String address; String guardian; double gwa; int[] courseGrade = new int[8];  
