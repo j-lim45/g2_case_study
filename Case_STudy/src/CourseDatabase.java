@@ -44,6 +44,7 @@ public class CourseDatabase {
 
                 if (grades[i] <= 100 & grades[i] >= 0) {
                     i++;
+                    errorMessage = "";
                     continue;
                 }
                 errorMessage = "Grade is outside range.";
