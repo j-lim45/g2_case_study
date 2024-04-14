@@ -472,17 +472,18 @@ class Menu {
     static void deleteAll(ArrayList<studentDatabase> studentList) {
         String errorMessage = ""; String choice;
         while (true) {
-            clearConsole.main(); displayDeleteTab();
+            clearConsole.main(); displayLogo(); displayDeleteTab();
             System.out.println("Are you sure you want to delete all users? This action is irreversible.\n");
             System.out.println(errorMessage);
-            System.out.println("Input [Y/N]: "); choice = Scan.caro.next();
+            System.out.print("Input [Y/N]: "); choice = Scan.caro.next().toUpperCase();
             if (choice.equals("Y")) {
                 int num = studentList.size();
                 for (int i = 0; i < num; i++) {
                     studentList.remove(0);
                 }
-                System.out.print("Action ended."); Scan.caro.next();
                 studentDatabase.reWriteFile(studentList);
+                clearConsole.main(); displayLogo(); displayDeleteTab();
+                System.out.println("Database successfully cleared. Input any key to continue: "); Scan.caro.next();
                 break;
             } else if (choice.equals("N")) {
                 break;
