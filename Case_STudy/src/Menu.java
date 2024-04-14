@@ -13,9 +13,19 @@ class Menu {
             if (choice.equals("1")) {
                 addUser();
                 errorMessage = "";
-            } else if (choice.equals("2")) editUser(studentDatabase.getStudentList());
-            else if (choice.equals("0"))    break;
-            else errorMessage = "ERROR: Invalid input. Please enter a valid option. [0-2]";
+            } else if (choice.equals("2")) {
+                try {
+                editUser(studentDatabase.getStudentList());
+                } catch (IndexOutOfBoundsException ie) {
+                    errorMessage = "ERROR: No user found.";
+                }
+            } else if (choice.equals("3")) {
+                if (studentDatabase.getStudentList().size() > 0) {
+                    deleteSubMenu();
+                } else errorMessage = "ERROR: No user to delete.";
+            } else if (choice.equals("0")) {
+                break;
+            } else errorMessage = "ERROR: Invalid input. Please enter a valid option. [0-2]";
         }
     }
 
@@ -312,9 +322,23 @@ class Menu {
         System.out.println("└────────────────────────────────────────────────────┘");
     }
 
+    static void displayDeleteMenu() {
+        System.out.println("┌────────────────────────────────────────────────────┐");
+        System.out.println("|                [1] Delete User                     |");
+        System.out.println("|                [2] Delete All Users                |");
+        System.out.println("|                [0] Exit                            |");
+        System.out.println("└────────────────────────────────────────────────────┘");
+    }
+
     static void displayEditTab() {
         System.out.println("┌────────────────────────────────────────────────────┐");
         System.out.println("|                     EDIT USER                      |");
+        System.out.println("└────────────────────────────────────────────────────┘");
+    }
+
+    static void displayDeleteTab() {
+        System.out.println("┌────────────────────────────────────────────────────┐");
+        System.out.println("|                    DELETE USER                     |");
         System.out.println("└────────────────────────────────────────────────────┘");
     }
 
@@ -368,7 +392,22 @@ class Menu {
         }
     }
 
-    static void printDatabase(ArrayList<studentDatabase> studentList) {
+    static void deleteSubMenu() {
+        String choice;
+        while (true) {
+            clearConsole.main(); displayLogo(); displayDeleteTab(); displayDeleteMenu();
+            
+            System.out.print("Input [0-2]: "); choice = Scan.caro.next();
+            if (choice.equals("1")) {
+                deleteUserTable(studentDatabase.getStudentList());
+            } else if (choice.equals("2")) {
+                deleteAll(studentDatabase.getStudentList());
+                break;
+            }
+        }
+    }
+
+    static void deleteUserTable(ArrayList<studentDatabase> studentList) {
         int tab = 0; String choice; String errorMessage = "";
         while (true) {
             clearConsole.main(); displayLogo(); displayTableTab();
@@ -378,6 +417,94 @@ class Menu {
             for (int i = tab; i < tab+10; i++) {
                 System.out.println("[" + (i+1) + "] " + studentList.get(i).studentID + "\t" + studentList.get(i).lastName + "\r\t\t\t\t" + studentList.get(i).firstName + "\r\t\t\t\t\t\t\t" + studentList.get(i).birthday + "\r\t\t\t\t\t\t\t\t\t\t" + studentList.get(i).address + "\r\t\t\t\t\t\t\t\t\t\t\t\t\t" + studentList.get(i).guardian + "\r\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\b" + String.format("%.2f", studentList.get(i).gwa));
                 if (i == studentList.size()-1) break;
+            }
+            System.out.println("  " + "===============================================================================================================================================");
+            if (tab > 0) {
+                System.out.print("[BACK]");
+            }
+            if ((tab+9) < studentList.size()) {
+                System.out.print("\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t[NEXT]");
+            }
+            System.err.println("\n" + errorMessage);
+            System.out.print("Enter Index Number of Student to Edit Info. [BACK/NEXT] to navigate the table. [X] to go back.");
+            System.out.print("\nInput: "); choice = Scan.caro.next().toUpperCase();
+            try {
+                if ((Integer.parseInt(choice)-1) >= 0 && (Integer.parseInt(choice)-1) <= studentList.size()) {
+                    while (true) {
+                        clearConsole.main(); displayLogo(); 
+                        System.out.printf("\nAre you sure you want to delete \"%s %s\" from the database?\n\n", studentList.get(Integer.parseInt(choice)-1).firstName, studentList.get(Integer.parseInt(choice)-1).lastName);
+                        System.err.println(errorMessage);
+                        System.out.print("Input [Y/N]: "); String confirm = Scan.caro.next().toUpperCase();
+                        if (confirm.equals("Y")) {
+                            studentList.remove(Integer.parseInt(choice)-1);
+                            studentDatabase.reWriteFile(studentList);
+
+                            clearConsole.main(); displayLogo(); displayDeleteTab(); System.out.println("User succesfully deleted.");
+                            System.out.print("\nInput any key to continue: "); Scan.caro.next();
+                            break;
+                        } else if (confirm.equals("N")) {
+                            break;
+                        } else {
+                            errorMessage = "ERROR: Invalid Choice.";
+                        }
+                    }
+                    break;
+                } else {
+                    errorMessage = "ERROR: Index number does not exist.";
+                }
+            } catch (Exception e) {
+                if (choice.equals("NEXT") && ((tab+9) < studentList.size())) {
+                    tab += 9;
+                    errorMessage = "";
+                } else if (choice.equals("BACK") && (tab > 0)) {
+                    tab -= 9;
+                    errorMessage = "";
+                } else if (choice.equals("X")) {
+                    break;
+                }
+                else {
+                    errorMessage = "ERROR: Invalid Choice";
+                }
+            }
+        }
+    }
+
+    static void deleteAll(ArrayList<studentDatabase> studentList) {
+        String errorMessage = ""; String choice;
+        while (true) {
+            clearConsole.main(); displayDeleteTab();
+            System.out.println("Are you sure you want to delete all users? This action is irreversible.\n");
+            System.out.println(errorMessage);
+            System.out.println("Input [Y/N]: "); choice = Scan.caro.next();
+            if (choice.equals("Y")) {
+                int num = studentList.size();
+                for (int i = 0; i < num; i++) {
+                    studentList.remove(0);
+                }
+                System.out.print("Action ended."); Scan.caro.next();
+                studentDatabase.reWriteFile(studentList);
+                break;
+            } else if (choice.equals("N")) {
+                break;
+            } else errorMessage = "ERROR: Invalid Choice.";
+        }
+
+    }
+
+
+    static void printDatabase(ArrayList<studentDatabase> studentList) {
+        int tab = 0; String choice; String errorMessage = "";
+        while (true) {
+            clearConsole.main(); displayLogo(); displayTableTab();
+            System.out.println("  " + "STUDENT ID\tLAST NAME\tFIRST NAME\t\tBIRTHDAY\t\tADDRESS\t\t\tGUARDIAN NAME\t\tGWA");
+            System.out.println("  " + "===============================================================================================================================================");
+            try {
+                for (int i = tab; i < tab+10; i++) {
+                    System.out.println("[" + (i+1) + "] " + studentList.get(i).studentID + "\t" + studentList.get(i).lastName + "\r\t\t\t\t" + studentList.get(i).firstName + "\r\t\t\t\t\t\t\t" + studentList.get(i).birthday + "\r\t\t\t\t\t\t\t\t\t\t" + studentList.get(i).address + "\r\t\t\t\t\t\t\t\t\t\t\t\t\t" + studentList.get(i).guardian + "\r\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\b" + String.format("%.2f", studentList.get(i).gwa));
+                    if (i == studentList.size()-1) break;
+                }
+            } catch (IndexOutOfBoundsException ie) {
+                System.out.println("\t\t\t\t\t\t\t\t\tEMPTY DATABASE");
             }
             System.out.println("  " + "===============================================================================================================================================");
             if (tab > 0) {
