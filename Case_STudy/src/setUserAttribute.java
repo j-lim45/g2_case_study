@@ -20,10 +20,11 @@ public class setUserAttribute {
 
     String setLastName() {
         String lastName = ""; String errorMessage = ""; boolean invalid = true;
+        Scan.caro.nextLine();
         while (invalid) {
             clearConsole.main(); Menu.displayLogo(); Menu.menuTab("|                 Enter Last Name:                   |", errorMessage);
 
-            System.out.print("Input Last Name: "); Scan.caro.nextLine();
+            System.out.print("Input Last Name: ");
             lastName = Scan.caro.nextLine().toUpperCase();
 
             invalid = false;
@@ -43,11 +44,11 @@ public class setUserAttribute {
 
     String setFirstName() {
         String firstName = ""; String errorMessage = ""; boolean invalid = true;
-
+        Scan.caro.nextLine();
         while (invalid) {
             clearConsole.main(); Menu.displayLogo(); Menu.menuTab("|                 Enter First Name:                  |", errorMessage);
 
-            System.out.print("Input First Name: "); Scan.caro.nextLine();
+            System.out.print("Input First Name: ");
             firstName = Scan.caro.nextLine().toUpperCase();
 
             invalid = false;
@@ -92,11 +93,11 @@ public class setUserAttribute {
 
     String setAddress() {
         String address = ""; boolean invalid = true; String errorMessage = "";
-
+        Scan.caro.nextLine();
         while (invalid) {
             clearConsole.main(); Menu.displayLogo(); Menu.menuTab("|                 Enter First Name:                  |", errorMessage);
 
-            System.out.print("Input Address: "); Scan.caro.nextLine();
+            System.out.print("Input Address: ");
             address = Scan.caro.nextLine().toUpperCase();
 
             invalid = false;
@@ -116,10 +117,11 @@ public class setUserAttribute {
 
     String setGuardian() {
         String guardian = ""; String errorMessage = ""; boolean invalid = true;
+        Scan.caro.nextLine();
         while (invalid) {
             clearConsole.main(); Menu.displayLogo(); Menu.menuTab("|     Enter Guardian Name (e.g 'JUAN DELA CRUZ')     |", errorMessage);
 
-            System.out.print("Input Guardian: "); Scan.caro.nextLine();
+            System.out.print("Input Guardian: ");
             guardian = Scan.caro.nextLine().toUpperCase();
 
             invalid = false;
