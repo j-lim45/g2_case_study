@@ -102,14 +102,11 @@ public class setUserAttribute {
 
             invalid = false;
             for (int i = 0; i < address.length(); i++) {
-                for (int j = 0; j < invalidCharacters.length(); j++) {
-                    if (address.charAt(i) == ';') {
-                        errorMessage = "ERROR: Input contains illegal character.";
-                        invalid = true;
-                        break;
-                    }
+                if (address.charAt(i) == ';') {
+                    errorMessage = "ERROR: Input contains illegal character.";
+                    invalid = true;
+                    break;
                 }
-                if (invalid) break;
             }
         }
         return address;
