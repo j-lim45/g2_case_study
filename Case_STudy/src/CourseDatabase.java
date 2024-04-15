@@ -34,11 +34,12 @@ public class CourseDatabase {
         while (true) {
             i = 0;
             while (i < grades.length) {
-                clearConsole.main(); Menu.displayLogo(); Menu.menuTab("|\t\t    " + getCourseList().get(i).shortName + "\r\t\t\t\t\t\t", errorMessage);
+                clearConsole.main(); Display.logo(); Display.addUserTab("|\t\t    " + getCourseList().get(i).shortName + "\r\t\t\t\t\t\t", errorMessage);
                 try {
                     System.out.print( "Input Grade [0-100]: "); grades[i] = Scan.caro.nextInt();
                 } catch (Exception e) {
                     errorMessage = "ERROR: Input is not valid";
+                    Scan.caro.next();
                     continue;
                 }
 
@@ -50,7 +51,7 @@ public class CourseDatabase {
                 errorMessage = "Grade is outside range.";
             }
 
-            clearConsole.main(); Menu.displayLogo(); Menu.menuTab("|                 CONFIRM GRADES                     |", errorMessage);
+            clearConsole.main(); Display.logo(); Display.addUserTab("|                 CONFIRM GRADES                     |", errorMessage);
             for (int j = 0; j < getCourseList().size(); j++) {
                 System.out.println(getCourseList().get(j).shortName + ": " + grades[j]);
             }

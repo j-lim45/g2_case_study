@@ -6,7 +6,7 @@ public class setUserAttribute {
     int setStudentID() {
         int studentID = 0; String errorMessage = "";
         while (true) {
-            clearConsole.main(); Menu.displayLogo(); Menu.menuTab("|                 Enter ID Number:                   |\n|(ID must be 8 characters long and starts with '209')|", errorMessage);
+            clearConsole.main(); Display.logo(); Display.addUserTab("|                 Enter ID Number:                   |\n|(ID must be 8 characters long and starts with '209')|", errorMessage);
             
             try {
                 System.out.print("Enter ID: "); studentID = Scan.caro.nextInt();
@@ -23,7 +23,7 @@ public class setUserAttribute {
         String lastName = ""; String errorMessage = ""; boolean invalid = true;
         Scan.caro.nextLine();
         while (invalid) {
-            clearConsole.main(); Menu.displayLogo(); Menu.menuTab("|                 Enter Last Name:                   |", errorMessage);
+            clearConsole.main(); Display.logo(); Display.addUserTab("|                 Enter Last Name:                   |", errorMessage);
 
             System.out.print("Input Last Name: ");
             lastName = Scan.caro.nextLine().toUpperCase();
@@ -47,7 +47,7 @@ public class setUserAttribute {
         String firstName = ""; String errorMessage = ""; boolean invalid = true;
         Scan.caro.nextLine();
         while (invalid) {
-            clearConsole.main(); Menu.displayLogo(); Menu.menuTab("|                 Enter First Name:                  |", errorMessage);
+            clearConsole.main(); Display.logo(); Display.addUserTab("|                 Enter First Name:                  |", errorMessage);
 
             System.out.print("Input First Name: ");
             firstName = Scan.caro.nextLine().toUpperCase();
@@ -72,15 +72,15 @@ public class setUserAttribute {
 
         while (true) {
             try {
-                clearConsole.main(); Menu.displayLogo(); Menu.menuTab("|          Enter Year of Birth (e.g '1986')          |", errorMessage);
+                clearConsole.main(); Display.logo(); Display.addUserTab("|          Enter Year of Birth (e.g '1986')          |", errorMessage);
                 System.out.print("Input Year: "); birthday[0] = Scan.caro.nextInt();
                 errorMessage = "";
 
-                clearConsole.main(); Menu.displayLogo(); Menu.menuTab("|       Enter Month of Birth (e.g '5' for May)       |", errorMessage);
+                clearConsole.main(); Display.logo(); Display.addUserTab("|       Enter Month of Birth (e.g '5' for May)       |", errorMessage);
                 System.out.print("Input Month of Birth: "); birthday[1] = Scan.caro.nextInt();
                 errorMessage = "";
 
-                clearConsole.main(); Menu.displayLogo(); Menu.menuTab("|     Enter Day of Birth (e.g '15' for May 15th)     |", errorMessage);
+                clearConsole.main(); Display.logo(); Display.addUserTab("|     Enter Day of Birth (e.g '15' for May 15th)     |", errorMessage);
                 System.out.print("Input Day of Birth: "); birthday[2] = Scan.caro.nextInt();
                 errorMessage = "";
                 
@@ -99,7 +99,7 @@ public class setUserAttribute {
         String address = ""; boolean invalid = true; String errorMessage = "";
         Scan.caro.nextLine();
         while (invalid) {
-            clearConsole.main(); Menu.displayLogo(); Menu.menuTab("|                 Enter First Name:                  |", errorMessage);
+            clearConsole.main(); Display.logo(); Display.addUserTab("|                 Enter First Name:                  |", errorMessage);
 
             System.out.print("Input Address: ");
             address = Scan.caro.nextLine().toUpperCase();
@@ -120,7 +120,7 @@ public class setUserAttribute {
         String guardian = ""; String errorMessage = ""; boolean invalid = true;
         Scan.caro.nextLine();
         while (invalid) {
-            clearConsole.main(); Menu.displayLogo(); Menu.menuTab("|     Enter Guardian Name (e.g 'JUAN DELA CRUZ')     |", errorMessage);
+            clearConsole.main(); Display.logo(); Display.addUserTab("|     Enter Guardian Name (e.g 'JUAN DELA CRUZ')     |", errorMessage);
 
             System.out.print("Input Guardian: ");
             guardian = Scan.caro.nextLine().toUpperCase();
@@ -143,7 +143,7 @@ public class setUserAttribute {
     int setCourseGrade(int i) {
         String errorMessage = ""; int grade;
         while (true) {
-            clearConsole.main(); Menu.displayLogo(); Menu.menuTab("|\t\t    " + CourseDatabase.getCourseList().get(i).shortName + "\r\t\t\t\t\t\t", errorMessage);
+            clearConsole.main(); Display.logo(); Display.addUserTab("|\t\t    " + CourseDatabase.getCourseList().get(i).shortName + "\r\t\t\t\t\t\t", errorMessage);
             
             try {
                 System.out.print( "Input Grade [0-100]: "); grade = Scan.caro.nextInt();
