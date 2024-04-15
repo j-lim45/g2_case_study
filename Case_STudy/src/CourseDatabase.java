@@ -3,10 +3,6 @@ import java.util.ArrayList;
 public class CourseDatabase {
     String shortName; String fullName; int creditUnits;
 
-    CourseDatabase() {
-
-    }
-
     CourseDatabase(String sn, String fn, int u) {
         shortName = sn;
         fullName = fn;

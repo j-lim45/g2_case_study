@@ -37,41 +37,6 @@ class Menu {
         }
     }
 
-    // static void Display.logo() {
-    //     System.out.println(
-    //         "╔====================================================╗\n" +
-    //         "║    ____                                  _  _      ║\n" +
-    //         "║   / ___|__ _ _ __ ___  _ __  _   _ ___ _| || |_    ║\n" +
-    //         "║  | |   / _` | '_ ` _ \\| '_ \\| | | / __|_  ..  _|   ║\n" +
-    //         "║  | |__| (_| | | | | | | |_) | |_| \\__ \\_      _|   ║\n" +
-    //         "║   \\____\\__,_|_| |_| |_| .__/ \\__,_|___/ |_||_|     ║\n" +  
-    //         "║                       |_|                          ║\n" +
-    //         "╚====================================================╝");
-    // }
-
-    // static void displayMenu() {
-    //     System.out.println("|                     MAIN MENU                      |");
-    //     System.out.println("┌────────────────────────────────────────────────────┐");
-    //     System.out.println("|                                                    |");
-    //     System.out.println("|             [1] Add/Edit/Delete User               |");
-    //     System.out.println("|             [2] View Database                      |");
-    //     System.out.println("|             [0] EXIT                               |");
-    //     System.out.println("|                                                    |");
-    //     System.out.println("└────────────────────────────────────────────────────┘");
-    // }
-
-    // static void displaySubMenu1() {
-    //     System.out.println("|                ADD/EDIT/DELETE USER                |");
-    //     System.out.println("┌────────────────────────────────────────────────────┐");
-    //     System.out.println("|                                                    |");
-    //     System.out.println("|             [1] Add User                           |");
-    //     System.out.println("|             [2] Edit User Field                    |");
-    //     System.out.println("|             [3] Delete User                        |");
-    //     System.out.println("|             [0] BACK                               |");
-    //     System.out.println("|                                                    |");
-    //     System.out.println("└────────────────────────────────────────────────────┘");
-    // }
-
     static void addUserTab() {
         int studentID = 0; String lastName = ""; String firstName = ""; String address; String guardian = ""    ; int[] birthday = new int[3]; double gwa = 0; int[] grades = new int[8];
         String invalidCharacters = ";\\\"\',./<>?|`~1234567890!@#$%^&*()_+-=[]{}";
@@ -314,88 +279,7 @@ class Menu {
         }
 
     }
-    
 
-    // static void addUserTab(String fieldPrompt, String errorMessage) {
-    //     System.out.println("|                    ADD USER                        |");
-    //     System.out.println("┌────────────────────────────────────────────────────┐");
-    //     System.out.println(fieldPrompt);
-    //     System.out.println("└────────────────────────────────────────────────────┘");
-    //     System.err.println(errorMessage);
-    // }
-
-    // static void Display.databaseTableTab() {
-    //     System.out.println("┌────────────────────────────────────────────────────┐");
-    //     System.out.println("|                   DATABASE TABLE                   |");
-    //     System.out.println("└────────────────────────────────────────────────────┘");
-    // }
-
-    // static void displayPLTab() {
-    //     System.out.println("┌────────────────────────────────────────────────────┐");
-    //     System.out.println("|                PRESIDENT'S LISTERS                 |");
-    //     System.out.println("└────────────────────────────────────────────────────┘");
-    // }
-
-    // static void displayDLTab() {
-    //     System.out.println("┌────────────────────────────────────────────────────┐");
-    //     System.out.println("|                  DEAN'S LISTERS                    |");
-    //     System.out.println("└────────────────────────────────────────────────────┘");
-    // }
-
-    // static void displayPassersTab() {
-    //     System.out.println("┌────────────────────────────────────────────────────┐");
-    //     System.out.println("|                  LIST OF PASSERS                   |");
-    //     System.out.println("└────────────────────────────────────────────────────┘");
-    // }
-
-    // static void displayConditionalsTab() {
-    //     System.out.println("┌────────────────────────────────────────────────────┐");
-    //     System.out.println("|                LIST OF CONDITIONALS                |");
-    //     System.out.println("└────────────────────────────────────────────────────┘");
-    // }
-
-
-    // static void displayDeleteMenu() {
-    //     System.out.println("┌────────────────────────────────────────────────────┐");
-    //     System.out.println("|                                                    |");
-    //     System.out.println("|                [1] Delete User                     |");
-    //     System.out.println("|                [2] Delete All Users                |");
-    //     System.out.println("|                [0] Exit                            |");
-    //     System.out.println("|                                                    |");
-    //     System.out.println("└────────────────────────────────────────────────────┘");
-    // }
-
-    // static void displayDatabaseMenu() {
-    //     System.out.println("┌────────────────────────────────────────────────────┐");
-    //     System.out.println("|                                                    |");
-    //     System.out.println("|             [1] View   All    Students             |");
-    //     System.out.println("|             [2] View President Listers             |");
-    //     System.out.println("|             [3] View   Dean's  Listers             |");
-    //     System.out.println("|             [4] View           Passers             |");
-    //     System.out.println("|             [5] View      Conditionals             |");
-    //     System.out.println("|             [6] View  Students    with             |");
-    //     System.out.println("|             with Incomplete Grades (INC)           |");
-    //     System.out.println("|                                                    |");
-    //     System.out.println("└────────────────────────────────────────────────────┘");
-    // }
-
-    // static void Display.editUserTab() {
-    //     System.out.println("┌────────────────────────────────────────────────────┐");
-    //     System.out.println("|                     EDIT USER                      |");
-    //     System.out.println("└────────────────────────────────────────────────────┘");
-    // }
-
-    // static void Display.deleteUserTab() {
-    //     System.out.println("┌────────────────────────────────────────────────────┐");
-    //     System.out.println("|                    DELETE USER                     |");
-    //     System.out.println("└────────────────────────────────────────────────────┘");
-    // }
-
-    // static void gradeReport(String name) {
-    //     System.out.println("┌────────────────────────────────────────────────────┐");
-    //     System.out.printf("|              %s GRADE REPORT\r\t\t\t\t\t\t\t\b\b\b|\n", name);
-    //     System.out.println("└────────────────────────────────────────────────────┘");
-    // }
 
     static int editUserTable(ArrayList<studentDatabase> studentList) {
         int tab = 0; String choice; String errorMessage = "";
@@ -760,36 +644,5 @@ class Menu {
             System.out.printf("General Weighted Average\t%.2f\n\n", studentList.get(studentIndex).gwa);
             
             System.out.print("Press any key to return: "); Scan.caro.next();
-    }
-    
-
-    public static void main(String[] args) {
-    String errorMesage = "";
-
-        while (true) {
-            clearConsole.main();
-            Display.logo();
-            Display.mainMenuScreen();
-            System.out.println(errorMesage);
-            System.out.print("\n\t\t\b\bEnter your choice: ");
-            
-            switch (Scan.caro.next()) {
-                case "1":
-                    subMenu1();
-                    break;
-
-                case "2":
-                    viewDatabaseSubMenu();
-                    break;
-
-                case "0":
-                    clearConsole.main(); System.out.println("Program ended.");
-                    System.exit(0);
-
-                default:
-                    errorMesage = "ERROR: Invalid input. Please enter a valid option. [0-2]";
-                    break;
-            }
-        }
     }
 }
