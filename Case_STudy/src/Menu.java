@@ -321,11 +321,36 @@ class Menu {
         System.out.println("└────────────────────────────────────────────────────┘");
     }
 
+    static void displayPLTab() {
+        System.out.println("┌────────────────────────────────────────────────────┐");
+        System.out.println("|                PRESIDENT'S LISTERS                 |");
+        System.out.println("└────────────────────────────────────────────────────┘");
+    }
+
+    static void displayDLTab() {
+        System.out.println("┌────────────────────────────────────────────────────┐");
+        System.out.println("|                  DEAN'S LISTERS                    |");
+        System.out.println("└────────────────────────────────────────────────────┘");
+    }
+
     static void displayDeleteMenu() {
         System.out.println("┌────────────────────────────────────────────────────┐");
         System.out.println("|                [1] Delete User                     |");
         System.out.println("|                [2] Delete All Users                |");
         System.out.println("|                [0] Exit                            |");
+        System.out.println("└────────────────────────────────────────────────────┘");
+    }
+
+    static void displayDatabaseMenu() {
+        System.out.println("┌────────────────────────────────────────────────────┐");
+        System.out.println("|             [1] View   All    Students             |");
+        System.out.println("|             [2] View President Listers             |");
+        System.out.println("|             [3] View   Dean's  Listers             |");
+        System.out.println("|             [4] View           Passers             |");
+        System.out.println("|             [5] View      Conditionals             |");
+        System.out.println("|             [6] View  Students    with             |");
+        System.out.println("|             with Incomplete Grades (INC)           |");
+        System.out.println("|             [0] Exit                               |");
         System.out.println("└────────────────────────────────────────────────────┘");
     }
 
@@ -491,14 +516,165 @@ class Menu {
                 break;
             } else errorMessage = "ERROR: Invalid Choice.";
         }
+    }
 
+    static void viewDatabaseSubMenu() {
+        String errorMessage = ""; String choice;
+        while (true) {
+            clearConsole.main(); displayLogo(); displayDatabaseMenu();
+            System.err.println(errorMessage);
+   
+            System.out.print("Input Choice [0-6]: "); choice = Scan.caro.next();
+
+            if (choice.equals("1")) {
+                printDatabase(studentDatabase.getStudentList());
+            } else if (choice.equals("2")) {
+                presidentListTable(studentDatabase.getStudentList());
+            } else if (choice.equals("3")) {
+                deansListTable(studentDatabase.getStudentList());
+            } else if (choice.equals("4")) {
+                passersList(studentDatabase.getStudentList());
+            } else if (choice.equals("5")) {
+                conditionalList(studentDatabase.getStudentList());
+            } else if (choice.equals("0")) {
+                break;
+            } else errorMessage = "ERROR: Invalid Choice.";
+        }
+    }
+
+    static void presidentListTable(ArrayList<studentDatabase> studentList) {
+        int counter = 1; boolean minimumGrade;
+        clearConsole.main(); displayLogo(); displayPLTab();
+        System.out.println("  " + "STUDENT ID\tLAST NAME\tFIRST NAME\t2MATHWORLD\t\b\b4FYE2\t\b9STS\t\b6CFUN\t6LOGPROG\t\b\b\b\b\bTHEOLOGY101\t7TPE1\tCWTS1\tGWA");
+        System.out.println("  " + "===============================================================================================================================================");
+        try {
+            for (int i = 0; i < studentList.size(); i++) {
+
+                minimumGrade = true;
+                for (int j = 0; j < 8; j++) {
+                    if (studentList.get(i).courseGrade[j] < 85) {
+                        minimumGrade = false;
+                        break;
+                    }
+                }
+
+                if (studentList.get(i).gwa >= 94 && minimumGrade) {
+                System.out.printf("[%d] %s\t%s\r\t\t\t\t%s\r\t\t\t\t\t\t\t\b\b\b\b%d\r\t\t\t\t\t\t\t\t\b%d\r\t\t\t\t\t\t\t\t\t%d\r\t\t\t\t\t\t\t\t\t\t%d\r\t\t\t\t\t\t\t\t\t\t\t   %d\r\t\t\t\t\t\t\t\t\t\t\t\t\t%d\r\t\t\t\t\t\t\t\t\t\t\t\t\t\t %d\r\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t %d\r\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\b%.2f\n", 
+                counter, studentList.get(i).studentID, studentList.get(i).lastName, studentList.get(i).firstName, 
+                studentList.get(i).courseGrade[0], studentList.get(i).courseGrade[1], studentList.get(i).courseGrade[2],
+                studentList.get(i).courseGrade[3], studentList.get(i).courseGrade[4], studentList.get(i).courseGrade[5],
+                studentList.get(i).courseGrade[6], studentList.get(i).courseGrade[7], studentList.get(i).gwa);
+                counter++;
+                }
+            }
+        } catch (IndexOutOfBoundsException ie) {
+            System.out.println("\t\t\t\t\t\t\t\t\tEMPTY DATABASE");
+        }
+        System.out.println("  " + "===============================================================================================================================================");
+        System.out.print("\nInput any key to return: "); Scan.caro.next();
+    }
+
+    static void deansListTable(ArrayList<studentDatabase> studentList) {
+        int counter = 1; boolean minimumGrade;
+        clearConsole.main(); displayLogo(); displayDLTab();
+        System.out.println("  " + "STUDENT ID\tLAST NAME\tFIRST NAME\t2MATHWORLD\t\b\b4FYE2\t\b9STS\t\b6CFUN\t6LOGPROG\t\b\b\b\b\bTHEOLOGY101\t7TPE1\tCWTS1\tGWA");
+        System.out.println("  " + "===============================================================================================================================================");
+        try {
+            for (int i = 0; i < studentList.size(); i++) {
+
+                minimumGrade = true;
+                for (int j = 0; j < 8; j++) {
+                    if (studentList.get(i).courseGrade[j] < 85) {
+                        minimumGrade = false;
+                        break;
+                    }
+                }
+
+                if (studentList.get(i).gwa >= 88 && studentList.get(i).gwa <= 93.99 && minimumGrade) {
+                System.out.printf("[%d] %s\t%s\r\t\t\t\t%s\r\t\t\t\t\t\t\t\b\b\b\b%d\r\t\t\t\t\t\t\t\t\b%d\r\t\t\t\t\t\t\t\t\t%d\r\t\t\t\t\t\t\t\t\t\t%d\r\t\t\t\t\t\t\t\t\t\t\t   %d\r\t\t\t\t\t\t\t\t\t\t\t\t\t%d\r\t\t\t\t\t\t\t\t\t\t\t\t\t\t %d\r\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t %d\r\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\b%.2f\n", 
+                counter, studentList.get(i).studentID, studentList.get(i).lastName, studentList.get(i).firstName, 
+                studentList.get(i).courseGrade[0], studentList.get(i).courseGrade[1], studentList.get(i).courseGrade[2],
+                studentList.get(i).courseGrade[3], studentList.get(i).courseGrade[4], studentList.get(i).courseGrade[5],
+                studentList.get(i).courseGrade[6], studentList.get(i).courseGrade[7], studentList.get(i).gwa);
+                counter++;
+                }
+            }
+        } catch (IndexOutOfBoundsException ie) {
+            System.out.println("\t\t\t\t\t\t\t\t\tEMPTY DATABASE");
+        }
+        System.out.println("  " + "===============================================================================================================================================");
+        System.out.print("\nInput any key to return: "); Scan.caro.next();
+    }
+
+    static void passersList(ArrayList<studentDatabase> studentList) {
+        int counter = 1; boolean minimumGrade;
+        clearConsole.main(); displayLogo(); displayDLTab();
+        System.out.println("  " + "STUDENT ID\tLAST NAME\tFIRST NAME\t2MATHWORLD\t\b\b4FYE2\t\b9STS\t\b6CFUN\t6LOGPROG\t\b\b\b\b\bTHEOLOGY101\t7TPE1\tCWTS1\tGWA");
+        System.out.println("  " + "===============================================================================================================================================");
+        try {
+            for (int i = 0; i < studentList.size(); i++) {
+
+                minimumGrade = true;
+                for (int j = 0; j < 8; j++) {
+                    if (studentList.get(i).courseGrade[j] < 75) {
+                        minimumGrade = false;
+                        break;
+                    }
+                }
+
+                if (studentList.get(i).gwa >= 75 && minimumGrade) {
+                System.out.printf("[%d] %s\t%s\r\t\t\t\t%s\r\t\t\t\t\t\t\t\b\b\b\b%d\r\t\t\t\t\t\t\t\t\b%d\r\t\t\t\t\t\t\t\t\t%d\r\t\t\t\t\t\t\t\t\t\t%d\r\t\t\t\t\t\t\t\t\t\t\t   %d\r\t\t\t\t\t\t\t\t\t\t\t\t\t%d\r\t\t\t\t\t\t\t\t\t\t\t\t\t\t %d\r\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t %d\r\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\b%.2f\n", 
+                counter, studentList.get(i).studentID, studentList.get(i).lastName, studentList.get(i).firstName, 
+                studentList.get(i).courseGrade[0], studentList.get(i).courseGrade[1], studentList.get(i).courseGrade[2],
+                studentList.get(i).courseGrade[3], studentList.get(i).courseGrade[4], studentList.get(i).courseGrade[5],
+                studentList.get(i).courseGrade[6], studentList.get(i).courseGrade[7], studentList.get(i).gwa);
+                counter++;
+                }
+            }
+        } catch (IndexOutOfBoundsException ie) {
+            System.out.println("\t\t\t\t\t\t\t\t\tEMPTY DATABASE");
+        }
+        System.out.println("  " + "===============================================================================================================================================");
+        System.out.print("\nInput any key to return: "); Scan.caro.next();
+    }
+
+    static void conditionalList(ArrayList<studentDatabase> studentList) {
+        int counter = 1; boolean failedCourse;
+        clearConsole.main(); displayLogo(); displayDLTab();
+        System.out.println("  " + "STUDENT ID\tLAST NAME\tFIRST NAME\t2MATHWORLD\t\b\b4FYE2\t\b9STS\t\b6CFUN\t6LOGPROG\t\b\b\b\b\bTHEOLOGY101\t7TPE1\tCWTS1\tGWA");
+        System.out.println("  " + "===============================================================================================================================================");
+        try {
+            for (int i = 0; i < studentList.size(); i++) {
+
+                failedCourse = false;
+                for (int j = 0; j < 8; j++) {
+                    if (studentList.get(i).courseGrade[j] < 75) {
+                        failedCourse = true;
+                        break;
+                    }
+                }
+
+                if (studentList.get(i).gwa < 75 || failedCourse) {
+                System.out.printf("[%d] %s\t%s\r\t\t\t\t%s\r\t\t\t\t\t\t\t\b\b\b\b%d\r\t\t\t\t\t\t\t\t\b%d\r\t\t\t\t\t\t\t\t\t%d\r\t\t\t\t\t\t\t\t\t\t%d\r\t\t\t\t\t\t\t\t\t\t\t   %d\r\t\t\t\t\t\t\t\t\t\t\t\t\t%d\r\t\t\t\t\t\t\t\t\t\t\t\t\t\t %d\r\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t %d\r\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\b%.2f\n", 
+                counter, studentList.get(i).studentID, studentList.get(i).lastName, studentList.get(i).firstName, 
+                studentList.get(i).courseGrade[0], studentList.get(i).courseGrade[1], studentList.get(i).courseGrade[2],
+                studentList.get(i).courseGrade[3], studentList.get(i).courseGrade[4], studentList.get(i).courseGrade[5],
+                studentList.get(i).courseGrade[6], studentList.get(i).courseGrade[7], studentList.get(i).gwa);
+                counter++;
+                }
+            }
+        } catch (IndexOutOfBoundsException ie) {
+            System.out.println("\t\t\t\t\t\t\t\t\tEMPTY DATABASE");
+        }
+        System.out.println("  " + "===============================================================================================================================================");
+        System.out.print("\nInput any key to return: "); Scan.caro.next();
     }
 
 
     static void printDatabase(ArrayList<studentDatabase> studentList) {
         int tab = 0; String choice; String errorMessage = "";
         while (true) {
-            clearConsole.main(); displayLogo(); displayTableTab();
+            clearConsole.main(); displayLogo(); displayPLTab();
             System.out.println("  " + "STUDENT ID\tLAST NAME\tFIRST NAME\t\tBIRTHDAY\t\tADDRESS\t\t\tGUARDIAN NAME\t\tGWA");
             System.out.println("  " + "===============================================================================================================================================");
             try {
@@ -573,7 +749,7 @@ class Menu {
                     break;
 
                 case "2":
-                    printDatabase(studentDatabase.getStudentList());
+                    viewDatabaseSubMenu();
                     break;
 
                 case "0":

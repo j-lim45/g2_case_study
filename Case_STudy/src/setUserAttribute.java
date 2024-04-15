@@ -83,7 +83,7 @@ public class setUserAttribute {
                 clearConsole.main(); Menu.displayLogo(); Menu.menuTab("|     Enter Day of Birth (e.g '15' for May 15th)     |", errorMessage);
                 System.out.print("Input Day of Birth: "); birthday[2] = Scan.caro.nextInt();
                 errorMessage = "";
-
+                
                 LocalDate.of(birthday[0], birthday[1], birthday[2]);
                 break;
             } catch (DateTimeException dte) {
