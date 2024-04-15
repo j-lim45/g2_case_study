@@ -4,7 +4,6 @@ import java.util.ArrayList;
 class Menu {
     
     static void subMenu1() {
-
         String errorMessage = ""; String choice;
 
         while (true) {
@@ -12,13 +11,12 @@ class Menu {
             System.out.println(errorMessage);
             
             System.out.print("\n\t\t\b\bEnter your choice: "); choice = Scan.caro.next();
-            if (choice.equals("1")) {
 
+            if (choice.equals("1")) {
                 addUserTab();
                 errorMessage = "";
 
             } else if (choice.equals("2")) {
-
                 try {
                 editUser(studentDatabase.getStudentList());
                 } catch (IndexOutOfBoundsException ie) {
@@ -26,19 +24,19 @@ class Menu {
                 }
 
             } else if (choice.equals("3")) {
-
                 if (studentDatabase.getStudentList().size() > 0) {
                     deleteSubMenu();
                 } else errorMessage = "ERROR: No user to delete.";
 
             } else if (choice.equals("0")) {
                 break;
+
             } else errorMessage = "ERROR: Invalid input. Please enter a valid option. [0-2]";
         }
     }
 
     static void addUserTab() {
-        int studentID = 0; String lastName = ""; String firstName = ""; String address; String guardian = ""    ; int[] birthday = new int[3]; double gwa = 0; int[] grades = new int[8];
+        int studentID = 0; String lastName = ""; String firstName = ""; String address = ""; String guardian = ""    ; int[] birthday = new int[3]; double gwa = 0; int[] grades = new int[8];
         String invalidCharacters = ";\\\"\',./<>?|`~1234567890!@#$%^&*()_+-=[]{}";
         String errorMessage = "";
 
@@ -53,15 +51,14 @@ class Menu {
             if      (String.valueOf(studentID).length() != 8)               errorMessage = "ERROR: ID Number must be 8 numbers long.";
             else if (!String.valueOf(studentID).startsWith("209"))   errorMessage = "ERROR: ID Number must start with \"209\".";
             else                                                            break;
-        }
+        } 
         Scan.caro.nextLine();
         // LAST NAME
         errorMessage = ""; boolean invalid = true;
         while (invalid) {
             clearConsole.main(); Display.logo(); Display.addUserTab("|                 Enter Last Name:                   |", errorMessage);
 
-            System.out.print("Input Last Name: ");
-            lastName = Scan.caro.nextLine().toUpperCase();
+            System.out.print("Input Last Name: "); lastName = Scan.caro.nextLine().toUpperCase();
 
             invalid = false;
             for (int i = 0; i < lastName.length(); i++) {
@@ -101,37 +98,54 @@ class Menu {
         errorMessage = "";
         while (true) {
                 try {
-                    clearConsole.main(); Display.logo(); Display.addUserTab("|          Enter Year of Birth (e.g '1986')          |", errorMessage);
+                    clearConsole.main(); Display.logo(); Display.addUserTab("|          Enter Year of Birth (e.g '1986'):         |", errorMessage);
                     System.out.print("Input Year: "); birthday[0] = Scan.caro.nextInt();
                     errorMessage = "";
-                    clearConsole.main(); Display.logo(); Display.addUserTab("|       Enter Month of Birth (e.g '5' for May)       |", errorMessage);
+
+                    clearConsole.main(); Display.logo(); Display.addUserTab("|       Enter Month of Birth (e.g '5' for May):      |", errorMessage);
                     System.out.print("Input Month of Birth: "); birthday[1] = Scan.caro.nextInt();
                     errorMessage = "";
-                    clearConsole.main(); Display.logo(); Display.addUserTab("|     Enter Day of Birth (e.g '15' for May 15th)     |", errorMessage);
+
+                    clearConsole.main(); Display.logo(); Display.addUserTab("|     Enter Day of Birth (e.g '15' for May 15th):    |", errorMessage);
                     System.out.print("Input Day of Birth: "); birthday[2] = Scan.caro.nextInt();
                     errorMessage = "";
+
                     LocalDate.of(birthday[0], birthday[1], birthday[2]);
+                    Scan.caro.nextLine();
                     break;
+
                 } catch (DateTimeException dte) {
-                    errorMessage = "Invalid date format. Please try again.";
+                    errorMessage = "ERROR: Invalid date format. Please try again.";
+
                 } catch (Exception e) {
-                    errorMessage = "Invalid Input. Please input correctly."; Scan.caro.next();
+                    errorMessage = "ERROR: Invalid input. Please input correctly."; Scan.caro.next();
+
                 }
             }
-
+            
         // ADDRESS
-        errorMessage = "";
-        while (true) {
-            clearConsole.main(); Display.logo(); Display.addUserTab("| Enter City Address (e.g 'Municipality of Angeles') |", errorMessage);
-            System.out.print("Input Address: "); Scan.caro.nextLine();
+        errorMessage = ""; invalid = true;
+        while (invalid) {
+            clearConsole.main(); Display.logo(); Display.addUserTab("|         Enter Address (e.g 'ANGELES CITY'):        |", errorMessage);
+
+            System.out.print("Input Address: ");
             address = Scan.caro.nextLine().toUpperCase();
-            break;
+
+            invalid = false;
+            for (int i = 0; i < address.length(); i++) {
+                if (address.charAt(i) == ';') {
+                    errorMessage = "ERROR: Input contains illegal character.";
+                    invalid = true;
+                    break;
+
+                }
+            }
         }
 
         // GUARDIAN NAME
         errorMessage = ""; invalid = true;
         while (invalid) {
-            clearConsole.main(); Display.logo(); Display.addUserTab("|     Enter Guardian Name (e.g 'JUAN DELA CRUZ')     |", errorMessage);
+            clearConsole.main(); Display.logo(); Display.addUserTab("|     Enter Guardian Name (e.g 'JUAN DELA CRUZ'):    |", errorMessage);
 
             System.out.print("Input Guardian: ");
             guardian = Scan.caro.nextLine().toUpperCase();
@@ -143,16 +157,15 @@ class Menu {
                         errorMessage = "ERROR: Input contains illegal characters.";
                         invalid = true;
                         break;
+
                     }
                 }
                 if (invalid) break;
             }
         }
 
-        String lineToWrite = 
-        studentID + ";" + lastName + ";" + firstName + ";" + 
-        birthday[0] + ";" + birthday[1] + ";" + birthday[2] + 
-        ";" + address + ";" + guardian + ";";
+        String lineToWrite = String.format("%d;%s;%s;%d;%d;%d;%s;%s;", studentID, lastName, firstName, birthday[0], birthday[1], birthday[2], address, guardian);
+        System.out.println(lineToWrite); Scan.caro.next();
 
         errorMessage = ""; String choice;
         while (true) {
