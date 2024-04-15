@@ -317,7 +317,7 @@ class Menu {
 
     static void displayTableTab() {
         System.out.println("┌────────────────────────────────────────────────────┐");
-        System.out.println("|                  Database Table                    |");
+        System.out.println("|                   DATABASE TABLE                   |");
         System.out.println("└────────────────────────────────────────────────────┘");
     }
 
@@ -333,16 +333,32 @@ class Menu {
         System.out.println("└────────────────────────────────────────────────────┘");
     }
 
+    static void displayPassersTab() {
+        System.out.println("┌────────────────────────────────────────────────────┐");
+        System.out.println("|                  LIST OF PASSERS                   |");
+        System.out.println("└────────────────────────────────────────────────────┘");
+    }
+
+    static void displayConditionalsTab() {
+        System.out.println("┌────────────────────────────────────────────────────┐");
+        System.out.println("|                LIST OF CONDITIONALS                |");
+        System.out.println("└────────────────────────────────────────────────────┘");
+    }
+
+
     static void displayDeleteMenu() {
         System.out.println("┌────────────────────────────────────────────────────┐");
+        System.out.println("|                                                    |");
         System.out.println("|                [1] Delete User                     |");
         System.out.println("|                [2] Delete All Users                |");
         System.out.println("|                [0] Exit                            |");
+        System.out.println("|                                                    |");
         System.out.println("└────────────────────────────────────────────────────┘");
     }
 
     static void displayDatabaseMenu() {
         System.out.println("┌────────────────────────────────────────────────────┐");
+        System.out.println("|                                                    |");
         System.out.println("|             [1] View   All    Students             |");
         System.out.println("|             [2] View President Listers             |");
         System.out.println("|             [3] View   Dean's  Listers             |");
@@ -350,7 +366,7 @@ class Menu {
         System.out.println("|             [5] View      Conditionals             |");
         System.out.println("|             [6] View  Students    with             |");
         System.out.println("|             with Incomplete Grades (INC)           |");
-        System.out.println("|             [0] Exit                               |");
+        System.out.println("|                                                    |");
         System.out.println("└────────────────────────────────────────────────────┘");
     }
 
@@ -571,6 +587,7 @@ class Menu {
             System.out.println("\t\t\t\t\t\t\t\t\tEMPTY DATABASE");
         }
         System.out.println("  " + "===============================================================================================================================================");
+        System.out.println("Requirements: A General Weighted Average of at least 94.00, and a minimum course grade of 85.");
         System.out.print("\nInput any key to return: "); Scan.caro.next();
     }
 
@@ -603,12 +620,13 @@ class Menu {
             System.out.println("\t\t\t\t\t\t\t\t\tEMPTY DATABASE");
         }
         System.out.println("  " + "===============================================================================================================================================");
+        System.out.println("Requirements: A General Weighted Average from 88.00 to 93.99, and a minimum course grade of 85.");
         System.out.print("\nInput any key to return: "); Scan.caro.next();
     }
 
     static void passersList(ArrayList<studentDatabase> studentList) {
         int counter = 1; boolean minimumGrade;
-        clearConsole.main(); displayLogo(); displayDLTab();
+        clearConsole.main(); displayLogo(); displayPassersTab();
         System.out.println("  " + "STUDENT ID\tLAST NAME\tFIRST NAME\t2MATHWORLD\t\b\b4FYE2\t\b9STS\t\b6CFUN\t6LOGPROG\t\b\b\b\b\bTHEOLOGY101\t7TPE1\tCWTS1\tGWA");
         System.out.println("  " + "===============================================================================================================================================");
         try {
@@ -635,12 +653,13 @@ class Menu {
             System.out.println("\t\t\t\t\t\t\t\t\tEMPTY DATABASE");
         }
         System.out.println("  " + "===============================================================================================================================================");
+        System.out.println("Requirements: A General Weighted Average of at least 75.00, and a minimum course grade of 75.");
         System.out.print("\nInput any key to return: "); Scan.caro.next();
     }
 
     static void conditionalList(ArrayList<studentDatabase> studentList) {
         int counter = 1; boolean failedCourse;
-        clearConsole.main(); displayLogo(); displayDLTab();
+        clearConsole.main(); displayLogo(); displayConditionalsTab();
         System.out.println("  " + "STUDENT ID\tLAST NAME\tFIRST NAME\t2MATHWORLD\t\b\b4FYE2\t\b9STS\t\b6CFUN\t6LOGPROG\t\b\b\b\b\bTHEOLOGY101\t7TPE1\tCWTS1\tGWA");
         System.out.println("  " + "===============================================================================================================================================");
         try {
@@ -667,6 +686,8 @@ class Menu {
             System.out.println("\t\t\t\t\t\t\t\t\tEMPTY DATABASE");
         }
         System.out.println("  " + "===============================================================================================================================================");
+        System.out.println("Requirements: A General Weighted Average lower than 75 or at least one course grade lower than 75.");
+        
         System.out.print("\nInput any key to return: "); Scan.caro.next();
     }
 
@@ -674,7 +695,7 @@ class Menu {
     static void printDatabase(ArrayList<studentDatabase> studentList) {
         int tab = 0; String choice; String errorMessage = "";
         while (true) {
-            clearConsole.main(); displayLogo(); displayPLTab();
+            clearConsole.main(); displayLogo(); displayTableTab();
             System.out.println("  " + "STUDENT ID\tLAST NAME\tFIRST NAME\t\tBIRTHDAY\t\tADDRESS\t\t\tGUARDIAN NAME\t\tGWA");
             System.out.println("  " + "===============================================================================================================================================");
             try {
@@ -693,7 +714,7 @@ class Menu {
                 System.out.print("\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t[NEXT]");
             }
             System.err.println("\n" + errorMessage);
-            System.out.print("Enter Index Number of Student to view Grades. [BACK/NEXT] to navigate the table. [X] to go back.");
+            System.out.print("\nEnter Index Number of Student to view Grades. [BACK/NEXT] to navigate the table. [X] to go back.");
             System.out.print("\nInput: "); choice = Scan.caro.next().toUpperCase();
 
             try {
