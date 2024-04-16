@@ -1,25 +1,23 @@
 import java.util.ArrayList;
 
 public class CourseDatabase {
-    String shortName; String fullName; int creditUnits;
+    String shortName;
 
-    CourseDatabase(String sn, String fn, int u) {
+    CourseDatabase(String sn) {
         shortName = sn;
-        fullName = fn;
-        creditUnits = u;
     }
 
     static ArrayList<CourseDatabase> getCourseList() {
         ArrayList<CourseDatabase> courseList = new ArrayList<CourseDatabase>();
 
-        courseList.add(new CourseDatabase("2MATHWORLD", "Mathematics in the Modern World", 3));
-        courseList.add(new CourseDatabase("4FYE2", "Big History: Big Bang to the Future", 3));
-        courseList.add(new CourseDatabase("9STS", "Science, Technology and Society", 3));
-        courseList.add(new CourseDatabase("6CFUN", "Computing Fundamentals", 3));
-        courseList.add(new CourseDatabase("6LOGPROG", "Logic Formulation and Introductory Programming", 3));
-        courseList.add(new CourseDatabase("THEOLOGY101", "Theological Foundations: Judeo-Christian Tradition and Sacred Scriptures", 3));
-        courseList.add(new CourseDatabase("7TPE1", "Physical Activities Toward Health and Fitness 1: Movement Competency Training", 2));
-        courseList.add(new CourseDatabase("CWTS1", "Civic Welfare Training Services", 3));
+        courseList.add(new CourseDatabase("2MATHWORLD"));
+        courseList.add(new CourseDatabase("4FYE2"));
+        courseList.add(new CourseDatabase("9STS"));
+        courseList.add(new CourseDatabase("6CFUN"));
+        courseList.add(new CourseDatabase("6LOGPROG"));
+        courseList.add(new CourseDatabase("THEOLOGY101"));
+        courseList.add(new CourseDatabase("7TPE1"));
+        courseList.add(new CourseDatabase("CWTS1"));
 
         return courseList;
     }
