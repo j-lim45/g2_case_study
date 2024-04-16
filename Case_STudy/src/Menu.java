@@ -3,7 +3,7 @@ import java.util.ArrayList;
 
 class Menu {
     
-    static void subMenu1() {
+    static void userMenu() {
         String errorMessage = ""; String choice;
 
         while (true) {
@@ -64,7 +64,7 @@ class Menu {
             for (int i = 0; i < lastName.length(); i++) {
                 for (int j = 0; j < invalidCharacters.length(); j++) {
                     if (lastName.charAt(i) == invalidCharacters.charAt(j)) {
-                        errorMessage = "ERROR: Input contains illegal characters.";
+                        errorMessage = "ERROR: Input contains illegal characters such as special characters or numbers.";
                         invalid = true;
                         break;
                     }
@@ -85,7 +85,7 @@ class Menu {
                 for (int i = 0; i < firstName.length(); i++) {
                     for (int j = 0; j < invalidCharacters.length(); j++) {
                         if (firstName.charAt(i) == invalidCharacters.charAt(j)) {
-                            errorMessage = "ERROR: Input contains illegal characters.";
+                            errorMessage = "ERROR: Input contains illegal characters such as special characters or numbers.";
                             invalid = true;
                             break;
                         }
@@ -134,7 +134,7 @@ class Menu {
             invalid = false;
             for (int i = 0; i < address.length(); i++) {
                 if (address.charAt(i) == ';') {
-                    errorMessage = "ERROR: Input contains illegal character.";
+                    errorMessage = "ERROR: Input contains an illegal character ';'.";
                     invalid = true;
                     break;
 
@@ -154,7 +154,7 @@ class Menu {
             for (int i = 0; i < guardian.length(); i++) {
                 for (int j = 0; j < invalidCharacters.length(); j++) {
                     if (guardian.charAt(i) == invalidCharacters.charAt(j)) {
-                        errorMessage = "ERROR: Input contains illegal characters.";
+                        errorMessage = "ERROR: Input contains illegal characters such as special characters or numbers.";
                         invalid = true;
                         break;
 
@@ -170,8 +170,8 @@ class Menu {
         errorMessage = ""; String choice;
         while (true) {
             clearConsole.main(); Display.logo(); Display.addUserTab("|        Do you want to input your grades?           |", errorMessage);
-            System.out.print("Input [Y/N]: "); choice = Scan.caro.next().toUpperCase();
-                if (choice.equals("Y")) {
+            System.out.print("Input [Y/N]: "); choice = Scan.caro.next();
+                if (choice.equalsIgnoreCase("Y")) {
                     grades = CourseDatabase.inputGrades();
 
                     for (int i = 0; i < grades.length; i++) {
@@ -186,7 +186,7 @@ class Menu {
                     }
                     gwa = 0;
                     break;
-                } else errorMessage = "ERROR: Invalid Choice";
+                } else errorMessage = "ERROR: Invalid Choice.";
             }
 
             lineToWrite += gwa;
@@ -412,7 +412,7 @@ class Menu {
                     break;
                 }
                 else {
-                    errorMessage = "ERROR: Invalid Choice";
+                    errorMessage = "ERROR: Invalid Choice.";
                 }
             }
         }
@@ -599,13 +599,13 @@ class Menu {
 
 
     static void printDatabase(ArrayList<studentDatabase> studentList) {
-        int tab = 0; String choice; String errorMessage = "";
+        int currentTab = 0; String choice; String errorMessage = "";
         while (true) {
             clearConsole.main(); Display.logo(); Display.databaseTableTab();
             System.out.println("  " + "STUDENT ID\tLAST NAME\tFIRST NAME\t\tBIRTHDAY\t\tADDRESS\t\t\tGUARDIAN NAME\t\tGWA");
             System.out.println("  " + "===============================================================================================================================================");
             try {
-                for (int i = tab; i < tab+10; i++) {
+                for (int i = currentTab; i < currentTab+10; i++) {
                     System.out.println("[" + (i+1) + "] " + studentList.get(i).studentID + "\t" + studentList.get(i).lastName + "\r\t\t\t\t" + studentList.get(i).firstName + "\r\t\t\t\t\t\t\t" + studentList.get(i).birthday + "\r\t\t\t\t\t\t\t\t\t\t" + studentList.get(i).address + "\r\t\t\t\t\t\t\t\t\t\t\t\t\t" + studentList.get(i).guardian + "\r\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\b" + String.format("%.2f", studentList.get(i).gwa));
                     if (i == studentList.size()-1) break;
                 }
@@ -613,10 +613,10 @@ class Menu {
                 System.out.println("\t\t\t\t\t\t\t\t\tEMPTY DATABASE");
             }
             System.out.println("  " + "===============================================================================================================================================");
-            if (tab > 0) {
+            if (currentTab > 0) {
                 System.out.print("[BACK]");
             }
-            if ((tab+9) < studentList.size()) {
+            if ((currentTab+9) < studentList.size()) {
                 System.out.print("\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t[NEXT]");
             }
             System.err.println("\n" + errorMessage);
@@ -624,19 +624,19 @@ class Menu {
             System.out.print("\nInput: "); choice = Scan.caro.next().toUpperCase();
 
             try {
-                
                 if ((Integer.parseInt(choice)-1) >= 0 && (Integer.parseInt(choice)-1) <= studentList.size()) {
                     viewGrades(studentList, (Integer.parseInt(choice)-1));
                     errorMessage = "";
                 } else {
                     errorMessage = "ERROR: Index number does not exist.";
                 }
+
             } catch (Exception e) {
-                if (choice.equals("NEXT") && ((tab+9) < studentList.size())) {
-                    tab += 9;
+                if (choice.equals("NEXT") && ((currentTab+9) < studentList.size())) {
+                    currentTab += 9;
                     errorMessage = "";
-                } else if (choice.equals("BACK") && (tab > 0)) {
-                    tab -= 9;
+                } else if (choice.equals("BACK") && (currentTab > 0)) {
+                    currentTab -= 9;
                     errorMessage = "";
                 } else if (choice.equals("X")) {
                     break;

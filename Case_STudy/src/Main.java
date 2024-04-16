@@ -10,7 +10,7 @@ class Main {
             
             switch (Scan.caro.next()) {
                 case "1":
-                    Menu.subMenu1();
+                    Menu.userMenu();
                     break;
 
                 case "2":

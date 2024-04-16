@@ -87,9 +87,9 @@ public class setUserAttribute {
                 LocalDate.of(birthday[0], birthday[1], birthday[2]);
                 break;
             } catch (DateTimeException dte) {
-                errorMessage = "Invalid date format. Please try again.";
+                errorMessage = "ERROR: Invalid date format.";
             } catch (Exception e) {
-                errorMessage = "Invalid Input. Please input correctly."; Scan.caro.next();
+                errorMessage = "ERROR: Invalid Input."; Scan.caro.next();
             }
         }
         return LocalDate.of(birthday[0], birthday[1], birthday[2]);
@@ -148,14 +148,14 @@ public class setUserAttribute {
             try {
                 System.out.print( "Input Grade [0-100]: "); grade = Scan.caro.nextInt();
             } catch (Exception e) {
-                errorMessage = "ERROR: Input is not valid";
+                errorMessage = "ERROR: Input is not valid.";
                 continue;
             }
 
             if (grade <= 100 && grade >= 0) {
                 return grade;
             }
-            errorMessage = "Grade is outside range.";
+            errorMessage = "ERROR: Grade is outside range.";
         }
     }
 }

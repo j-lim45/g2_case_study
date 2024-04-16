@@ -73,9 +73,11 @@ class studentDatabase {
             }
             csvReader.close();
         } catch (IOException ioe) {
-            ioe.printStackTrace();
+            System.out.print("An error occured. Print stack trace?\n\nInput ['Y' to Print]:");
+            if (Scan.caro.next().equalsIgnoreCase("Y")) ioe.printStackTrace();
         } catch (CsvValidationException csv) {
-            csv.printStackTrace();
+            System.out.print("An error occured. Print stack trace?\n\nInput ['Y' to Print]:");
+            if (Scan.caro.next().equalsIgnoreCase("Y")) csv.printStackTrace();
         }   
     }
 
@@ -93,8 +95,8 @@ class studentDatabase {
             bw.write(lineToWrite); br.close(); bw.close(); // writes the actual line
 
         } catch (Exception e) {
-            System.out.print("An error occured. Would you want to print stack trace?\n\nInput ['Y' to Print]:");
-            if (Scan.caro.next().toUpperCase().equals("Y")) e.printStackTrace();
+            System.out.print("An error occured. Print stack trace?\n\nInput ['Y' to Print]:");
+            if (Scan.caro.next().equalsIgnoreCase("Y")) e.printStackTrace();
         }
     }
 
@@ -122,8 +124,8 @@ class studentDatabase {
                 bw.write(lineToWrite); br.close(); bw.close();
             }
         } catch (Exception e) {
-            System.out.print("An error occured. Print Stack Trace?: ");
-            if (Scan.caro.next().toUpperCase().equals("Y")) e.printStackTrace();
+            System.out.print("An error occured. Print stack trace?\n\nInput ['Y' to Print]:");
+            if (Scan.caro.next().equalsIgnoreCase("Y")) e.printStackTrace();
         }
     }
 }

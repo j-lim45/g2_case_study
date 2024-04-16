@@ -32,7 +32,7 @@ public class CourseDatabase {
                 try {
                     System.out.print( "Input Grade [0-100]: "); grades[i] = Scan.caro.nextInt();
                 } catch (Exception e) {
-                    errorMessage = "ERROR: Input is not valid";
+                    errorMessage = "ERROR: Input is not valid.";
                     Scan.caro.next();
                     continue;
                 }
@@ -42,7 +42,7 @@ public class CourseDatabase {
                     errorMessage = "";
                     continue;
                 }
-                errorMessage = "Grade is outside range.";
+                errorMessage = "ERROR: Grade is outside range.";
             }
 
             clearConsole.main(); Display.logo(); Display.addUserTab("|                 CONFIRM GRADES                     |", errorMessage);
