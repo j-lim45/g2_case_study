@@ -1,10 +1,16 @@
-import java.util.ArrayList; import java.io.*;
+import java.util.ArrayList; 
+
+import java.io.File; import java.io.IOException; import java.io.FileReader; import java.io.FileWriter; 
+import java.io.PrintWriter; import java.io.BufferedReader; import java.io.BufferedWriter;
+
 import com.opencsv.*; import com.opencsv.exceptions.CsvValidationException;
+
 import java.time.LocalDate; 
 
 class studentDatabase { 
     int studentID; String lastName; String firstName; LocalDate birthday; String address; String guardian; double gwa; int[] courseGrade = new int[8];  
-    static CSVReader csvReader = null;                                                                                          
+    static CSVReader csvReader = null;                         
+
     studentDatabase() { // constructor with no parameters
     }
 

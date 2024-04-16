@@ -1,5 +1,5 @@
-import java.time.LocalDate; import java.time.DateTimeException;
 import java.util.ArrayList;
+import java.time.LocalDate; import java.time.DateTimeException;
 
 class Menu {
     
@@ -13,7 +13,7 @@ class Menu {
             System.out.print("\n\t\t\b\bEnter your choice: "); choice = Scan.caro.next();
 
             if (choice.equals("1")) {
-                addUserTab();
+                addUserInput();
                 errorMessage = "";
 
             } else if (choice.equals("2")) {
@@ -35,7 +35,7 @@ class Menu {
         }
     }
 
-    static void addUserTab() {
+    static void addUserInput() {
         int studentID = 0; String lastName = ""; String firstName = ""; String address = ""; String guardian = ""    ; int[] birthday = new int[3]; double gwa = 0; int[] grades = new int[8];
         String invalidCharacters = ";\\\"\',./<>?|`~1234567890!@#$%^&*()_+-=[]{}";
         String errorMessage = "";
@@ -199,6 +199,50 @@ class Menu {
 
         }
 
+    static int editUserTable(ArrayList<studentDatabase> studentList) {
+        int tab = 0; String choice; String errorMessage = "";
+        while (true) {
+            clearConsole.main(); Display.logo(); Display.databaseTableTab();
+            System.out.println("  " + "STUDENT ID\tLAST NAME\tFIRST NAME\t\tBIRTHDAY\t\tADDRESS\t\t\tGUARDIAN NAME\t\tGWA");
+            System.out.println("  " + "===============================================================================================================================================");
+
+            for (int i = tab; i < tab+10; i++) {
+                System.out.println("[" + (i+1) + "] " + studentList.get(i).studentID + "\t" + studentList.get(i).lastName + "\r\t\t\t\t" + studentList.get(i).firstName + "\r\t\t\t\t\t\t\t" + studentList.get(i).birthday + "\r\t\t\t\t\t\t\t\t\t\t" + studentList.get(i).address + "\r\t\t\t\t\t\t\t\t\t\t\t\t\t" + studentList.get(i).guardian + "\r\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\b" + String.format("%.2f", studentList.get(i).gwa));
+                if (i == studentList.size()-1) break;
+            }
+            System.out.println("  " + "===============================================================================================================================================");
+            if (tab > 0) {
+                System.out.print("[BACK]");
+            }
+            if ((tab+9) < studentList.size()) {
+                System.out.print("\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t[NEXT]");
+            }
+            System.err.println("\n" + errorMessage);
+            System.out.print("Enter Index Number of Student to Edit Info. [BACK/NEXT] to navigate the table. [X] to go back.");
+            System.out.print("\nInput: "); choice = Scan.caro.next().toUpperCase();
+            try {
+                if ((Integer.parseInt(choice)-1) >= 0 && (Integer.parseInt(choice)-1) <= studentList.size()) {
+                    return Integer.parseInt(choice)-1;
+                } else {
+                    errorMessage = "ERROR: Index number does not exist.";
+                }
+            } catch (Exception e) {
+                if (choice.equals("NEXT") && ((tab+9) < studentList.size())) {
+                    tab += 9;
+                    errorMessage = "";
+                } else if (choice.equals("BACK") && (tab > 0)) {
+                    tab -= 9;
+                    errorMessage = "";
+                } else if (choice.equals("X")) {
+                    return -1;
+                }
+                else {
+                    errorMessage = "ERROR: Invalid Choice.";
+                }
+            }
+        }
+    }
+
     static void editUser(ArrayList<studentDatabase> studentList) {
         String choice; String errorMessage = ""; setUserAttribute set = new setUserAttribute();
         while (true) {
@@ -293,51 +337,6 @@ class Menu {
 
     }
 
-
-    static int editUserTable(ArrayList<studentDatabase> studentList) {
-        int tab = 0; String choice; String errorMessage = "";
-        while (true) {
-            clearConsole.main(); Display.logo(); Display.databaseTableTab();
-            System.out.println("  " + "STUDENT ID\tLAST NAME\tFIRST NAME\t\tBIRTHDAY\t\tADDRESS\t\t\tGUARDIAN NAME\t\tGWA");
-            System.out.println("  " + "===============================================================================================================================================");
-
-            for (int i = tab; i < tab+10; i++) {
-                System.out.println("[" + (i+1) + "] " + studentList.get(i).studentID + "\t" + studentList.get(i).lastName + "\r\t\t\t\t" + studentList.get(i).firstName + "\r\t\t\t\t\t\t\t" + studentList.get(i).birthday + "\r\t\t\t\t\t\t\t\t\t\t" + studentList.get(i).address + "\r\t\t\t\t\t\t\t\t\t\t\t\t\t" + studentList.get(i).guardian + "\r\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\b" + String.format("%.2f", studentList.get(i).gwa));
-                if (i == studentList.size()-1) break;
-            }
-            System.out.println("  " + "===============================================================================================================================================");
-            if (tab > 0) {
-                System.out.print("[BACK]");
-            }
-            if ((tab+9) < studentList.size()) {
-                System.out.print("\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t[NEXT]");
-            }
-            System.err.println("\n" + errorMessage);
-            System.out.print("Enter Index Number of Student to Edit Info. [BACK/NEXT] to navigate the table. [X] to go back.");
-            System.out.print("\nInput: "); choice = Scan.caro.next().toUpperCase();
-            try {
-                if ((Integer.parseInt(choice)-1) >= 0 && (Integer.parseInt(choice)-1) <= studentList.size()) {
-                    return Integer.parseInt(choice)-1;
-                } else {
-                    errorMessage = "ERROR: Index number does not exist.";
-                }
-            } catch (Exception e) {
-                if (choice.equals("NEXT") && ((tab+9) < studentList.size())) {
-                    tab += 9;
-                    errorMessage = "";
-                } else if (choice.equals("BACK") && (tab > 0)) {
-                    tab -= 9;
-                    errorMessage = "";
-                } else if (choice.equals("X")) {
-                    return -1;
-                }
-                else {
-                    errorMessage = "ERROR: Invalid Choice.";
-                }
-            }
-        }
-    }
-
     static void deleteSubMenu() {
         String choice; String errorMessage = "";
         while (true) {
@@ -375,7 +374,7 @@ class Menu {
                 System.out.print("\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t[NEXT]");
             }
             System.err.println("\n" + errorMessage);
-            System.out.print("Enter Index Number of Student to Edit Info. [BACK/NEXT] to navigate the table. [X] to go back.");
+            System.out.print("Enter Index Number of Student to Delete. [BACK/NEXT] to navigate the table. [X] to go back.");
             System.out.print("\nInput: "); choice = Scan.caro.next().toUpperCase();
             try {
                 if ((Integer.parseInt(choice)-1) >= 0 && (Integer.parseInt(choice)-1) <= studentList.size()) {
@@ -446,7 +445,7 @@ class Menu {
             clearConsole.main(); Display.logo(); Display.databaseMenuScreen();
             System.err.println(errorMessage);
    
-            System.out.print("Input Choice [0-6]: "); choice = Scan.caro.next();
+            System.out.print("\t\tEnter Choice [0-6]: "); choice = Scan.caro.next();
 
             if (choice.equals("1")) {
                 printDatabase(studentDatabase.getStudentList());
