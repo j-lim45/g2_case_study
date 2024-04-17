@@ -7,7 +7,7 @@ class Menu {
         String errorMessage = ""; String choice;
 
         while (true) {
-            clearConsole.main(); Display.logo(); Display.userMenuScreen();
+            clearConsole.main(); Display.logo(); Display.userMenuScreen();  
             System.out.println(errorMessage);
             
             System.out.print("\n\t\t\b\bEnter your choice: "); choice = Scan.caro.next();
@@ -279,7 +279,6 @@ class Menu {
                 System.out.print("INPUT: "); choice = Scan.caro.next().toUpperCase();
                 if (choice.equals("1")) {
                     studentID = set.setStudentID();
-                    
                 } else if (choice.equals("2")) {
                     lastName = set.setLastName();
                 } else if (choice.equals("3")) {
