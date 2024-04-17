@@ -1,10 +1,10 @@
 class Main {
     public static void main(String[] args) {
-        String errorMesage = "";
+        String errorMessage = "";
     
         while (true) {
             clearConsole.main(); Display.logo(); Display.mainMenuScreen();
-            System.out.println(errorMesage);
+            System.out.println(errorMessage);
 
             System.out.print("\n\t\t\b\bEnter your choice: ");
             
@@ -22,7 +22,7 @@ class Main {
                     System.exit(0);
 
                 default:
-                    errorMesage = "ERROR: Invalid input. Please enter a valid option. [0-2]";
+                    errorMessage = "ERROR: Invalid input. Please enter a valid option. [0-2]";
                     break;
             }
         }

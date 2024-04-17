@@ -73,8 +73,7 @@ class Display {
         System.out.println("|             [3] View   Dean's  Listers             |");
         System.out.println("|             [4] View           Passers             |");
         System.out.println("|             [5] View      Conditionals             |");
-        System.out.println("|             [6] View  Students    with             |");
-        System.out.println("|             with Incomplete Grades (INC)           |");
+        System.out.println("|             [0] Exit                               |");
         System.out.println("|                                                    |");
         System.out.println("└────────────────────────────────────────────────────┘");
     }

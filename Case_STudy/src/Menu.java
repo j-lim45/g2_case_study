@@ -165,7 +165,6 @@ class Menu {
         }
 
         String lineToWrite = String.format("%d;%s;%s;%d;%d;%d;%s;%s;", studentID, lastName, firstName, birthday[0], birthday[1], birthday[2], address, guardian);
-        System.out.println(lineToWrite); Scan.caro.next();
 
         errorMessage = ""; String choice;
         while (true) {
