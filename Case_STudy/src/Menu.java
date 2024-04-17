@@ -110,9 +110,13 @@ class Menu {
                     System.out.print("Input Day of Birth: "); birthday[2] = Scan.caro.nextInt();
                     errorMessage = "";
 
-                    LocalDate.of(birthday[0], birthday[1], birthday[2]);
+                    // LocalDate.of(birthday[0], birthday[1], birthday[2]);
                     Scan.caro.nextLine();
-                    break;
+                    if (LocalDate.of(birthday[0], birthday[1], birthday[2]).isAfter(LocalDate.now())) {
+                        errorMessage = "ERROR: Inputted date is after today.";
+                    } else {
+                        break;
+                    }
 
                 } catch (DateTimeException dte) {
                     errorMessage = "ERROR: Invalid date format. Please try again.";
