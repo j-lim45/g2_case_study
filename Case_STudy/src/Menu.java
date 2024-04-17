@@ -203,21 +203,21 @@ class Menu {
         }
 
     static int editUserTable(ArrayList<studentDatabase> studentList) {
-        int tab = 0; String choice; String errorMessage = "";
+        int currentTab = 0; String choice; String errorMessage = "";
         while (true) {
             clearConsole.main(); Display.logo(); Display.databaseTableTab();
             System.out.println("  " + "STUDENT ID\tLAST NAME\tFIRST NAME\t\tBIRTHDAY\t\tADDRESS\t\t\tGUARDIAN NAME\t\tGWA");
             System.out.println("  " + "===============================================================================================================================================");
 
-            for (int i = tab; i < tab+10; i++) {
+            for (int i = currentTab; i < currentTab+10; i++) {
                 System.out.println("[" + (i+1) + "] " + studentList.get(i).studentID + "\t" + studentList.get(i).lastName + "\r\t\t\t\t" + studentList.get(i).firstName + "\r\t\t\t\t\t\t\t" + studentList.get(i).birthday + "\r\t\t\t\t\t\t\t\t\t\t" + studentList.get(i).address + "\r\t\t\t\t\t\t\t\t\t\t\t\t\t" + studentList.get(i).guardian + "\r\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\b" + String.format("%.2f", studentList.get(i).gwa));
                 if (i == studentList.size()-1) break;
             }
             System.out.println("  " + "===============================================================================================================================================");
-            if (tab > 0) {
+            if (currentTab > 0) {
                 System.out.print("[BACK]");
             }
-            if ((tab+9) < studentList.size()) {
+            if ((currentTab+9) < studentList.size()) {
                 System.out.print("\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t[NEXT]");
             }
             System.err.println("\n" + errorMessage);
@@ -230,11 +230,11 @@ class Menu {
                     errorMessage = "ERROR: Index number does not exist.";
                 }
             } catch (Exception e) {
-                if (choice.equals("NEXT") && ((tab+9) < studentList.size())) {
-                    tab += 9;
+                if (choice.equals("NEXT") && ((currentTab+9) < studentList.size())) {
+                    currentTab += 9;
                     errorMessage = "";
-                } else if (choice.equals("BACK") && (tab > 0)) {
-                    tab -= 9;
+                } else if (choice.equals("BACK") && (currentTab > 0)) {
+                    currentTab -= 9;
                     errorMessage = "";
                 } else if (choice.equals("X")) {
                     return -1;
@@ -428,14 +428,13 @@ class Menu {
             System.out.println(errorMessage);
             System.out.print("Input [Y/N]: "); choice = Scan.caro.next().toUpperCase();
             if (choice.equals("Y")) {
-                int num = studentList.size();
-                for (int i = 0; i < num; i++) {
-                    studentList.remove(0);
-                }
+                studentList.clear();
                 studentDatabase.reWriteFile(studentList);
+
                 clearConsole.main(); Display.logo(); Display.deleteUserTab();
                 System.out.println("Database successfully cleared. Input any key to continue: "); Scan.caro.next();
                 break;
+
             } else if (choice.equals("N")) {
                 break;
             } else errorMessage = "ERROR: Invalid Choice.";

@@ -59,7 +59,7 @@ class studentDatabase {
             }
 
             int databaseIndex = 0;
-            while ((cellRow = csvReader.readNext()) != null) { // while (csvReader does not read a line that contains nothing) { convert the line contents into each attributes of every object (student)  }
+            while ((cellRow = csvReader.readNext()) != null) { // reads each line in the file to parse data fields of a student
                 studentList.add(new studentDatabase());                              
                 studentList.get(databaseIndex).studentID = Integer.parseInt(cellRow[0]);
                 studentList.get(databaseIndex).lastName = cellRow[1];
