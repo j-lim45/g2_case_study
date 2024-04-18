@@ -210,7 +210,9 @@ class Menu {
             System.out.println("  " + "===============================================================================================================================================");
 
             for (int i = currentTab; i < currentTab+10; i++) {
-                System.out.println("[" + (i+1) + "] " + studentList.get(i).studentID + "\t" + studentList.get(i).lastName + "\r\t\t\t\t" + studentList.get(i).firstName + "\r\t\t\t\t\t\t\t" + studentList.get(i).birthday + "\r\t\t\t\t\t\t\t\t\t\t" + studentList.get(i).address + "\r\t\t\t\t\t\t\t\t\t\t\t\t\t" + studentList.get(i).guardian + "\r\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\b" + String.format("%.2f", studentList.get(i).gwa));
+                System.out.printf("[%d] %d\t%s\r\t\t\t\t%s\r\t\t\t\t\t\t\t%s\r\t\t\t\t\t\t\t\t\t\t%s\r\t\t\t\t\t\t\t\t\t\t\t\t\t%s\r\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\b%.2f\n",
+                (i+1), studentList.get(i).studentID, studentList.get(i).lastName, studentList.get(i).firstName,
+                studentList.get(i).birthday, studentList.get(i).address, studentList.get(i).guardian, studentList.get(i).gwa);
                 if (i == studentList.size()-1) break;
             }
             System.out.println("  " + "===============================================================================================================================================");
@@ -365,7 +367,9 @@ class Menu {
             System.out.println("  " + "===============================================================================================================================================");
 
             for (int i = tab; i < tab+10; i++) {
-                System.out.println("[" + (i+1) + "] " + studentList.get(i).studentID + "\t" + studentList.get(i).lastName + "\r\t\t\t\t" + studentList.get(i).firstName + "\r\t\t\t\t\t\t\t" + studentList.get(i).birthday + "\r\t\t\t\t\t\t\t\t\t\t" + studentList.get(i).address + "\r\t\t\t\t\t\t\t\t\t\t\t\t\t" + studentList.get(i).guardian + "\r\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\b" + String.format("%.2f", studentList.get(i).gwa));
+                System.out.printf("[%d] %d\t%s\r\t\t\t\t%s\r\t\t\t\t\t\t\t%s\r\t\t\t\t\t\t\t\t\t\t%s\r\t\t\t\t\t\t\t\t\t\t\t\t\t%s\r\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\b%.2f\n",
+                (i+1), studentList.get(i).studentID, studentList.get(i).lastName, studentList.get(i).firstName,
+                studentList.get(i).birthday, studentList.get(i).address, studentList.get(i).guardian, studentList.get(i).gwa);
                 if (i == studentList.size()-1) break;
             }
             System.out.println("  " + "===============================================================================================================================================");
@@ -606,7 +610,9 @@ class Menu {
             System.out.println("  " + "===============================================================================================================================================");
             try {
                 for (int i = currentTab; i < currentTab+10; i++) {
-                    System.out.println("[" + (i+1) + "] " + studentList.get(i).studentID + "\t" + studentList.get(i).lastName + "\r\t\t\t\t" + studentList.get(i).firstName + "\r\t\t\t\t\t\t\t" + studentList.get(i).birthday + "\r\t\t\t\t\t\t\t\t\t\t" + studentList.get(i).address + "\r\t\t\t\t\t\t\t\t\t\t\t\t\t" + studentList.get(i).guardian + "\r\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\b" + String.format("%.2f", studentList.get(i).gwa));
+                    System.out.printf("[%d] %d\t%s\r\t\t\t\t%s\r\t\t\t\t\t\t\t%s\r\t\t\t\t\t\t\t\t\t\t%s\r\t\t\t\t\t\t\t\t\t\t\t\t\t%s\r\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\b%.2f\n",
+                    (i+1), studentList.get(i).studentID, studentList.get(i).lastName, studentList.get(i).firstName,
+                    studentList.get(i).birthday, studentList.get(i).address, studentList.get(i).guardian, studentList.get(i).gwa);
                     if (i == studentList.size()-1) break;
                 }
             } catch (IndexOutOfBoundsException ie) {
