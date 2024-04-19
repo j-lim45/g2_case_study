@@ -84,8 +84,12 @@ public class setUserAttribute {
                 System.out.print("Input Day of Birth: "); birthday[2] = Scan.caro.nextInt();
                 errorMessage = "";
                 
-                LocalDate.of(birthday[0], birthday[1], birthday[2]);
-                break;
+                if (LocalDate.of(birthday[0], birthday[1], birthday[2]).isAfter(LocalDate.now())) {
+                    errorMessage = "ERROR: Inputted date is after today.";
+                } else {
+                    break;
+                }
+
             } catch (DateTimeException dte) {
                 errorMessage = "ERROR: Invalid date format.";
             } catch (Exception e) {
@@ -99,7 +103,7 @@ public class setUserAttribute {
         String address = ""; boolean invalid = true; String errorMessage = "";
         Scan.caro.nextLine();
         while (invalid) {
-            clearConsole.main(); Display.logo(); Display.addUserTab("|                 Enter First Name:                  |", errorMessage);
+            clearConsole.main(); Display.logo(); Display.addUserTab("|                 Enter Address:                     |", errorMessage);
 
             System.out.print("Input Address: ");
             address = Scan.caro.nextLine().toUpperCase();

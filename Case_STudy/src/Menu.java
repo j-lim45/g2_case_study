@@ -550,7 +550,7 @@ class Menu {
                     }
                 }
 
-                if (studentList.get(i).gwa >= 75 && minimumGrade) {
+                if (studentList.get(i).gwa >= 80 && minimumGrade) {
                 System.out.printf("[%d] %s\t%s\r\t\t\t\t%s\r\t\t\t\t\t\t\t\b\b\b\b%d\r\t\t\t\t\t\t\t\t\b%d\r\t\t\t\t\t\t\t\t\t%d\r\t\t\t\t\t\t\t\t\t\t%d\r\t\t\t\t\t\t\t\t\t\t\t   %d\r\t\t\t\t\t\t\t\t\t\t\t\t\t%d\r\t\t\t\t\t\t\t\t\t\t\t\t\t\t %d\r\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t %d\r\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\b%.2f\n", 
                 counter, studentList.get(i).studentID, studentList.get(i).lastName, studentList.get(i).firstName, 
                 studentList.get(i).courseGrade[0], studentList.get(i).courseGrade[1], studentList.get(i).courseGrade[2],
@@ -563,7 +563,7 @@ class Menu {
             System.out.println("\t\t\t\t\t\t\t\t\tEMPTY DATABASE");
         }
         System.out.println("  " + "===============================================================================================================================================");
-        System.out.println("Requirements: A General Weighted Average of at least 75.00, and a minimum course grade of 75.");
+        System.out.println("Requirements: A General Weighted Average of at least 80.00, and a minimum course grade of 75.");
         System.out.print("\nInput any key to return: "); Scan.caro.next();
     }
 
@@ -583,7 +583,7 @@ class Menu {
                     }
                 }
 
-                if (studentList.get(i).gwa < 75 || failedCourse) {
+                if (studentList.get(i).gwa < 80 || failedCourse) {
                 System.out.printf("[%d] %s\t%s\r\t\t\t\t%s\r\t\t\t\t\t\t\t\b\b\b\b%d\r\t\t\t\t\t\t\t\t\b%d\r\t\t\t\t\t\t\t\t\t%d\r\t\t\t\t\t\t\t\t\t\t%d\r\t\t\t\t\t\t\t\t\t\t\t   %d\r\t\t\t\t\t\t\t\t\t\t\t\t\t%d\r\t\t\t\t\t\t\t\t\t\t\t\t\t\t %d\r\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t %d\r\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\b%.2f\n", 
                 counter, studentList.get(i).studentID, studentList.get(i).lastName, studentList.get(i).firstName, 
                 studentList.get(i).courseGrade[0], studentList.get(i).courseGrade[1], studentList.get(i).courseGrade[2],
@@ -596,7 +596,7 @@ class Menu {
             System.out.println("\t\t\t\t\t\t\t\t\tEMPTY DATABASE");
         }
         System.out.println("  " + "===============================================================================================================================================");
-        System.out.println("Requirements: A General Weighted Average lower than 75 or at least one course grade lower than 75.");
+        System.out.println("Requirements: A General Weighted Average lower than 80.00 or at least one course grade lower than 75.");
         
         System.out.print("\nInput any key to return: "); Scan.caro.next();
     }
