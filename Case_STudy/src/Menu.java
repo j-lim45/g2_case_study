@@ -173,8 +173,8 @@ class Menu {
         errorMessage = ""; String choice;
         while (true) {
             clearConsole.main(); Display.logo(); Display.addUserTab("|        Do you want to input your grades?           |", errorMessage);
-            System.out.print("Input [Y/N]: "); choice = Scan.caro.next();
-                if (choice.equalsIgnoreCase("Y")) {
+            System.out.print("Input [Y/N]: "); choice = Scan.caro.next().toUpperCase();
+                if (choice.equals("Y")) {
                     grades = CourseDatabase.inputGrades();
 
                     for (int i = 0; i < grades.length; i++) {
