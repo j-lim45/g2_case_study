@@ -75,7 +75,7 @@ class studentDatabase {
                     j++;
                 }
 
-                databaseIndex++; // i think this code is useless but im not sure
+                databaseIndex++;
             }
             csvReader.close();
         } catch (IOException ioe) {
@@ -106,7 +106,7 @@ class studentDatabase {
         }
     }
 
-    static void reWriteFile(ArrayList<studentDatabase> studentList) {
+    static void reWriteFile(ArrayList<studentDatabase> studentList) { // rewrites the entire file whenever a change is made (edit or deleted)
         BufferedReader br = null; BufferedWriter bw = null; PrintWriter pw = null;
         try {      
             pw = new PrintWriter("database.csv");

@@ -3,11 +3,11 @@ import java.util.ArrayList;
 public class CourseDatabase {
     String shortName;
 
-    CourseDatabase(String sn) {
+    CourseDatabase(String sn) { // constructor that holds the arraylist of courses
         shortName = sn;
     }
 
-    static ArrayList<CourseDatabase> getCourseList() {
+    static ArrayList<CourseDatabase> getCourseList() { // get method for course lists
         ArrayList<CourseDatabase> courseList = new ArrayList<CourseDatabase>();
 
         courseList.add(new CourseDatabase("2MATHWORLD"));
@@ -22,7 +22,7 @@ public class CourseDatabase {
         return courseList;
     }
 
-    static int[] inputGrades() {
+    static int[] inputGrades() { // inputs grades for every course taken
         int[] grades = new int[8]; int i = 0; String choice; String errorMessage = "";
 
         while (true) {

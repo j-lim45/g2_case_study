@@ -1,6 +1,6 @@
 import java.time.LocalDate; import java.time.DateTimeException;
 
-public class setUserAttribute {
+public class setUserAttribute { // class with set methods for individual student data
     static String invalidCharacters = ";\\\"\',./<>?|`~1234567890!@#$%^&*()_+-=[]{}";
 
     int setStudentID() {

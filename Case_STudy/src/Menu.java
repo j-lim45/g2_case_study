@@ -169,14 +169,14 @@ class Menu {
         }
 
         String lineToWrite = String.format("%d;%s;%s;%d;%d;%d;%s;%s;", studentID, lastName, firstName, birthday[0], birthday[1], birthday[2], address, guardian);
-
+        // COURSE GRADES
         errorMessage = ""; String choice;
         while (true) {
             clearConsole.main(); Display.logo(); Display.addUserTab("|        Do you want to input your grades?           |", errorMessage);
             System.out.print("Input [Y/N]: "); choice = Scan.caro.next().toUpperCase();
                 if (choice.equals("Y")) {
                     grades = CourseDatabase.inputGrades();
-
+                    // GWA CALCULATION
                     for (int i = 0; i < grades.length; i++) {
                         gwa += grades[i];
                     }
@@ -184,7 +184,7 @@ class Menu {
 
                     break;
                 } else if (choice.equals("N")) {
-                    for (int i = 0; i < grades.length; i++) {
+                    for (int i = 0; i < grades.length; i++) { // sets every course to 0
                         grades[i] = 0;
                     }
                     gwa = 0;
@@ -292,30 +292,30 @@ class Menu {
                 } else if (choice.equals("6")) {
                     guardian = set.setGuardian();
                 } else if (choice.equals("7")) {
-                    courseGrade[0] = set.setCourseGrade(0);
+                    courseGrade[0] = set.setCourseGrade(0); // 2MATHWORLD
                 } else if (choice.equals("8")) {
-                    courseGrade[1] = set.setCourseGrade(1);
+                    courseGrade[1] = set.setCourseGrade(1); // 4FYE2
                 } else if (choice.equals("9")) {
-                    courseGrade[2] = set.setCourseGrade(2);
+                    courseGrade[2] = set.setCourseGrade(2); // 9STS
                 } else if (choice.equals("10")) {
-                    courseGrade[3] = set.setCourseGrade(3);
+                    courseGrade[3] = set.setCourseGrade(3); // 6CFUN
                 } else if (choice.equals("11")) {
-                    courseGrade[4] = set.setCourseGrade(4);
+                    courseGrade[4] = set.setCourseGrade(4); // 6LOGPROG
                 } else if (choice.equals("12")) {
-                    courseGrade[5] = set.setCourseGrade(5);
+                    courseGrade[5] = set.setCourseGrade(5); // THEOLOGY101
                 } else if (choice.equals("13")) {
-                    courseGrade[6] = set.setCourseGrade(6);
+                    courseGrade[6] = set.setCourseGrade(6); // 7TPE1
                 } else if (choice.equals("14")) {
-                    courseGrade[7] = set.setCourseGrade(7);
+                    courseGrade[7] = set.setCourseGrade(7); // CWTS1
                 } else if (choice.equals("X")) {
                     break;
                 } else if (choice.equals("CONFIRM")) {
-                    double gwa = 0;
+                    double gwa = 0; // calculates gwa after confirming grades
                     for (int i = 0; i < CourseDatabase.getCourseList().size(); i++) {
                         gwa += courseGrade[i];
                     }
                     gwa /= CourseDatabase.getCourseList().size();
-                    
+                    // sets the changed info in the arrayList
                     studentList.get(studentIndex).studentID = studentID;
                     studentList.get(studentIndex).lastName = lastName;
                     studentList.get(studentIndex).firstName = firstName;
@@ -326,7 +326,7 @@ class Menu {
                         studentList.get(studentIndex).courseGrade[i] = courseGrade[i];
                     }
                     studentList.get(studentIndex).gwa = gwa;
-
+                    // rewrites the info in the csv file
                     studentDatabase.reWriteFile(studentList);
                     clearConsole.main(); Display.logo(); Display.editUserTab(); System.out.println("Changes succesfully made.");
                     System.out.print("\nInput any key to continue: "); Scan.caro.next();
@@ -609,7 +609,7 @@ class Menu {
             System.out.println("  " + "STUDENT ID\tLAST NAME\tFIRST NAME\t\tBIRTHDAY\t\tADDRESS\t\t\tGUARDIAN NAME\t\tGWA");
             System.out.println("  " + "===============================================================================================================================================");
             try {
-                for (int i = currentTab; i < currentTab+10; i++) {
+                for (int i = currentTab; i < currentTab+10; i++) { // prints students by 10 in each tab
                     System.out.printf("[%d] %d\t%s\r\t\t\t\t%s\r\t\t\t\t\t\t\t%s\r\t\t\t\t\t\t\t\t\t\t%s\r\t\t\t\t\t\t\t\t\t\t\t\t\t%s\r\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\b%.2f\n",
                     (i+1), studentList.get(i).studentID, studentList.get(i).lastName, studentList.get(i).firstName,
                     studentList.get(i).birthday, studentList.get(i).address, studentList.get(i).guardian, studentList.get(i).gwa);
@@ -619,10 +619,10 @@ class Menu {
                 System.out.println("\t\t\t\t\t\t\t\t\tEMPTY DATABASE");
             }
             System.out.println("  " + "===============================================================================================================================================");
-            if (currentTab > 0) {
+            if (currentTab > 0) { // if current tab is on the first 10 students, [BACK] will not be printed
                 System.out.print("[BACK]");
             }
-            if ((currentTab+9) < studentList.size()) {
+            if ((currentTab+9) < studentList.size()) { // if current tab is on the last 10 students, [NEXT] will not be printed
                 System.out.print("\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t[NEXT]");
             }
             System.err.println("\n" + errorMessage);
